@@ -64,8 +64,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                     refreshToken: token // Rename field to 'token' or keep as is for prototype
                 });
             }
-        } catch (error) {
+        } catch (error: any) {
             console.error("Error signing in with Google", error);
+            alert(`Sign-In Error: ${error.message}`);
         }
     };
 
