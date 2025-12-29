@@ -522,6 +522,7 @@ The `CreateAgent` Mutation requires an argument of type `CreateAgentVariables`, 
 
 ```javascript
 export interface CreateAgentVariables {
+  id?: UUIDString | null;
   name: string;
   type: string;
   status: string;
@@ -576,6 +577,7 @@ export default function CreateAgentComponent() {
   // After calling the Mutation hook function, you must call `UseMutationResult.mutate()` to execute the Mutation.
   // The `useCreateAgent` Mutation requires an argument of type `CreateAgentVariables`:
   const createAgentVars: CreateAgentVariables = {
+    id: ..., // optional
     name: ..., 
     type: ..., 
     status: ..., 
@@ -584,7 +586,7 @@ export default function CreateAgentComponent() {
   };
   mutation.mutate(createAgentVars);
   // Variables can be defined inline as well.
-  mutation.mutate({ name: ..., type: ..., status: ..., schedule: ..., settings: ..., });
+  mutation.mutate({ id: ..., name: ..., type: ..., status: ..., schedule: ..., settings: ..., });
 
   // You can also pass in a `useDataConnectMutationOptions` object to `UseMutationResult.mutate()`.
   const options = {

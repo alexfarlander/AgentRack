@@ -563,6 +563,7 @@ The `CreateAgent` mutation requires an argument of type `CreateAgentVariables`, 
 
 ```typescript
 export interface CreateAgentVariables {
+  id?: UUIDString | null;
   name: string;
   type: string;
   status: string;
@@ -587,6 +588,7 @@ import { connectorConfig, createAgent, CreateAgentVariables } from '@agentrack/s
 
 // The `CreateAgent` mutation requires an argument of type `CreateAgentVariables`:
 const createAgentVars: CreateAgentVariables = {
+  id: ..., // optional
   name: ..., 
   type: ..., 
   status: ..., 
@@ -598,7 +600,7 @@ const createAgentVars: CreateAgentVariables = {
 // You can use the `await` keyword to wait for the promise to resolve.
 const { data } = await createAgent(createAgentVars);
 // Variables can be defined inline as well.
-const { data } = await createAgent({ name: ..., type: ..., status: ..., schedule: ..., settings: ..., });
+const { data } = await createAgent({ id: ..., name: ..., type: ..., status: ..., schedule: ..., settings: ..., });
 
 // You can also pass in a `DataConnect` instance to the action shortcut function.
 const dataConnect = getDataConnect(connectorConfig);
@@ -621,6 +623,7 @@ import { connectorConfig, createAgentRef, CreateAgentVariables } from '@agentrac
 
 // The `CreateAgent` mutation requires an argument of type `CreateAgentVariables`:
 const createAgentVars: CreateAgentVariables = {
+  id: ..., // optional
   name: ..., 
   type: ..., 
   status: ..., 
@@ -631,7 +634,7 @@ const createAgentVars: CreateAgentVariables = {
 // Call the `createAgentRef()` function to get a reference to the mutation.
 const ref = createAgentRef(createAgentVars);
 // Variables can be defined inline as well.
-const ref = createAgentRef({ name: ..., type: ..., status: ..., schedule: ..., settings: ..., });
+const ref = createAgentRef({ id: ..., name: ..., type: ..., status: ..., schedule: ..., settings: ..., });
 
 // You can also pass in a `DataConnect` instance to the `MutationRef` function.
 const dataConnect = getDataConnect(connectorConfig);

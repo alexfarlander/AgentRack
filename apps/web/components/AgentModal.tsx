@@ -32,6 +32,7 @@ export default function AgentModal({ isOpen, onClose }: AgentModalProps) {
             };
 
             await createAgent(dataconnect, {
+                id: crypto.randomUUID(),
                 name,
                 type,
                 status: "IDLE",
@@ -68,8 +69,9 @@ export default function AgentModal({ isOpen, onClose }: AgentModalProps) {
                             onChange={(e) => setType(e.target.value as any)}
                             className="w-full bg-slate-800 border border-slate-700 rounded p-2 text-slate-200 focus:outline-none focus:border-blue-500"
                         >
-                            <option value="OUTREACH">Outreach Vibe</option>
-                            <option value="SUMMARIZER">Summarizer</option>
+                            <option value="OUTREACH">Outreach Assistant (Email)</option>
+                            <option value="SUMMARIZER">Content Summarizer</option>
+                            <option value="CUSTOM">Custom Agent</option>
                         </select>
                     </div>
                     <div className="flex gap-3 justify-end pt-4">
