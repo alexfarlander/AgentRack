@@ -5,3 +5,19 @@ runConfig:
   concurrency: 80
   cpu: 1
   memoryMiB: 512
+
+env:
+  - variable: NEXT_PUBLIC_FIREBASE_API_KEY
+    value: "AIzaSyAT22UnwXYytDFrauCy8Dy84SV-1TthDm4"
+  - variable: NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN
+    value: "agentrackapp.firebaseapp.com"
+  - variable: NEXT_PUBLIC_FIREBASE_PROJECT_ID
+    value: "agentrackapp"
+  - variable: NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET
+    value: "agentrackapp.firebasestorage.app"
+  - variable: NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID
+    value: "401086624734"
+  - variable: NEXT_PUBLIC_FIREBASE_APP_ID
+    value: "1:401086624734:web:c1d29db491b342c4a6a34f"
+  - variable: NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
+    value: "G-HWXNW3QW8W"
