@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@agentrack/shared": "1.0.0",
-    "@dataconnect/generated": "file:src/dataconnect-generated",
+    "@agentrack/sql-sdk": "1.0.0",
     "firebase": "^11.3.0",
     "next": "16.1.1",
     "react": "19.2.3",

@@ -9,7 +9,7 @@ import {
     onAuthStateChanged
 } from "firebase/auth";
 import { auth, dataconnect } from "../lib/firebase";
-import { createUser } from "@dataconnect/generated";
+import { createUser, updateUser } from "@agentrack/sql-sdk";
 
 interface AuthContextType {
     user: User | null;
@@ -48,8 +48,22 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     const signInWithGoogle = async () => {
         const provider = new GoogleAuthProvider();
+        provider.addScope("https://www.googleapis.com/auth/gmail.send");
+        provider.addScope("https://www.googleapis.com/auth/gmail.readonly");
+
         try {
-            await signInWithPopup(auth, provider);
+            const result = await signInWithPopup(auth, provider);
+            const credential = GoogleAuthProvider.credentialFromResult(result);
+            const token = credential?.accessToken;
+
+            if (token && result.user) {
+                // For prototype, we sync the access token. 
+                // For true "background" automation, we would need a refresh token.
+                await updateUser(dataconnect, {
+                    googleId: result.user.uid,
+                    refreshToken: token // Rename field to 'token' or keep as is for prototype
+                });
+            }
         } catch (error) {
             console.error("Error signing in with Google", error);
         }

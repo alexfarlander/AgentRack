@@ -4,6 +4,7 @@ type User @table {
   displayName: String
   email: String
   photoUrl: String
+  refreshToken: String
 }
 
 type Agent @table {

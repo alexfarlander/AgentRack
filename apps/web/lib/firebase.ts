@@ -3,7 +3,7 @@ import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { getFunctions } from "firebase/functions";
 import { getDataConnect } from "firebase/data-connect";
-import { connectorConfig } from "@dataconnect/generated";
+import { connectorConfig } from "@agentrack/sql-sdk";
 
 const firebaseConfig = {
     apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,

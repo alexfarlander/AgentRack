@@ -10,13 +10,15 @@
         "logs": "firebase functions:log"
     },
     "engines": {
-        "node": "18"
+        "node": "22"
     },
     "main": "lib/index.js",
     "dependencies": {
         "firebase-admin": "^11.8.0",
         "firebase-functions": "^4.3.1",
-        "@agentrack/shared": "1.0.0"
+        "firebase": "^11.3.0",
+        "@agentrack/shared": "file:./libs/shared",
+        "@agentrack/sql-sdk": "file:./libs/sql-sdk"
     },
     "devDependencies": {
         "typescript": "^4.9.0",

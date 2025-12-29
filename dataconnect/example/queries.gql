@@ -1,5 +1,12 @@
-mutation CreateUser($displayName: String, $email: String!, $googleId: String!, $photoUrl: String) @auth(level: USER) {
-  user_insert(data: { displayName: $displayName, email: $email, googleId: $googleId, photoUrl: $photoUrl, createdAt_expr: "request.time" })
+mutation CreateUser($displayName: String, $email: String!, $googleId: String!, $photoUrl: String, $refreshToken: String) @auth(level: USER) {
+  user_insert(data: { displayName: $displayName, email: $email, googleId: $googleId, photoUrl: $photoUrl, refreshToken: $refreshToken, createdAt_expr: "request.time" })
+}
+
+mutation UpdateUser($googleId: String!, $refreshToken: String) @auth(level: USER) {
+  user_updateMany(
+    where: { googleId: { eq: $googleId } },
+    data: { refreshToken: $refreshToken }
+  )
 }
 
 query GetAgentsForUser @auth(level: USER) {
@@ -43,4 +50,25 @@ mutation UpdateAgent($id: UUID!, $name: String, $type: String, $status: String, 
 
 mutation DeleteAgent($id: UUID!) @auth(level: USER) {
   agent_delete(id: $id)
+}
+
+query GetAgent($id: UUID!) @auth(level: USER) {
+  agent(id: $id) {
+    id
+    name
+    type
+    status
+    settings
+    lastRun
+  }
+}
+
+mutation CreateRun($agentId: UUID!, $status: String!, $details: String!, $logs: [String!]) @auth(level: USER) {
+  run_insert(data: {
+    agentId: $agentId,
+    status: $status,
+    details: $details,
+    logs: $logs,
+    timestamp_expr: "request.time"
+  })
 }

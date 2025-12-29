@@ -1,8 +1,8 @@
 connectorId: example
 generate:
   javascriptSdk:
-    - outputDir: ../../apps/web/src/dataconnect-generated
-      package: "@dataconnect/generated"
-      packageJsonDir: ../../apps/web
-      react: true
+    - outputDir: ../../packages/sql-sdk
+      package: "@agentrack/sql-sdk"
+      packageJsonDir: ../../packages/sql-sdk
+      react: false
       angular: false
