@@ -26,7 +26,7 @@ export const runOutreachCycle = functions.https.onRequest(async (req: functions.
     try {
         // 1. Fetch Agent using SQL
         const agentResponse = await getAgent(dataconnect, { id: agentId });
-        const agentData = agentResponse.data.agent;
+        const agentData = agentResponse.data.agentV2;
 
         if (!agentData) {
             res.status(404).send("Agent not found");

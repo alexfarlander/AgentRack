@@ -15,7 +15,7 @@ export default function Home() {
   // Data Connect Hook
   const { data, isLoading: loadingAgents, refetch } = useGetAgentsForUser(dataconnect);
 
-  const agents = data?.agents || [];
+  const agents = data?.agentV2s || [];
 
   const handleDelete = async (agentId: string) => {
     if (!user || !confirm("Delete this agent?")) return;
