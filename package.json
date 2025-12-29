@@ -6,8 +6,8 @@
         "packages/*"
     ],
     "scripts": {
-        "build": "npm run build -w packages/shared && npm run build -w apps/web && rm -rf .next public && mkdir -p .next && cp -r apps/web/.next/standalone/. . && cp -r apps/web/.next/static .next/static && cp -r apps/web/public public",
-        "start": "PORT=8080 node server.js",
+        "build": "npm run build -w packages/shared && npm run build -w apps/web && rm -rf .next public && mkdir -p .next/standalone && cp -r apps/web/.next/standalone/apps/web/. .next/standalone/ && cp -r apps/web/.next/standalone/node_modules .next/standalone/node_modules && cp -r apps/web/.next/static .next/static && cp -r apps/web/public public",
+        "start": "PORT=8080 node .next/standalone/server.js",
         "web:dev": "npm run dev -w apps/web",
         "web:build": "npm run build -w apps/web",
         "functions:build": "npm run build -w apps/functions",
