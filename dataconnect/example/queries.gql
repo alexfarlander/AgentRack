@@ -1,0 +1,46 @@
+mutation CreateUser($displayName: String, $email: String!, $googleId: String!, $photoUrl: String) @auth(level: USER) {
+  user_insert(data: { displayName: $displayName, email: $email, googleId: $googleId, photoUrl: $photoUrl, createdAt_expr: "request.time" })
+}
+
+query GetAgentsForUser @auth(level: USER) {
+  agents(where: { userId: { eq_expr: "auth.uid" } }) {
+    id
+    name
+    type
+    status
+    schedule
+    settings
+    lastRun
+    createdAt
+  }
+}
+
+mutation CreateAgent($name: String!, $type: String!, $status: String!, $schedule: String, $settings: String) @auth(level: USER) {
+  agent_insert(data: {
+    name: $name,
+    type: $type,
+    status: $status,
+    schedule: $schedule,
+    settings: $settings,
+    userId_expr: "auth.uid",
+    createdAt_expr: "request.time"
+  })
+}
+
+mutation UpdateAgent($id: UUID!, $name: String, $type: String, $status: String, $schedule: String, $settings: String, $lastRun: Timestamp) @auth(level: USER) {
+  agent_update(
+    id: $id,
+    data: {
+      name: $name,
+      type: $type,
+      status: $status,
+      schedule: $schedule,
+      settings: $settings,
+      lastRun: $lastRun
+    }
+  )
+}
+
+mutation DeleteAgent($id: UUID!) @auth(level: USER) {
+  agent_delete(id: $id)
+}

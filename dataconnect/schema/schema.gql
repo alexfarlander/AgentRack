@@ -1,0 +1,26 @@
+type User @table {
+  googleId: String!
+  createdAt: Timestamp!
+  displayName: String
+  email: String
+  photoUrl: String
+}
+
+type Agent @table {
+  user: User!
+  name: String!
+  type: String!
+  status: String!
+  createdAt: Timestamp!
+  schedule: String
+  lastRun: Timestamp
+  settings: String
+}
+
+type Run @table {
+  agent: Agent!
+  timestamp: Timestamp!
+  status: String!
+  details: String!
+  logs: [String]
+}

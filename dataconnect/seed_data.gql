@@ -1,0 +1,54 @@
+mutation CreateSeedData @auth(level: PUBLIC, insecureReason: "This mutation is used to seed the database with initial data and does not require authentication") @transaction {
+  user_insertMany(data: [
+    {
+      id: "550e8400-e29b-41d4-a716-446655440000",
+      createdAt: "2024-04-01T00:00:00Z",
+      displayName: "Demo User 1",
+      email: "demo1@example.com",
+      googleId: "demouser1googleid",
+      photoUrl: "https://example.com/demouser1.jpg"
+    },
+    {
+      id: "550e8400-e29b-41d4-a716-446655440001",
+      createdAt: "2024-04-02T00:00:00Z",
+      displayName: "Demo User 2",
+      email: "demo2@example.com",
+      googleId: "demouser2googleid",
+      photoUrl: "https://example.com/demouser2.jpg"
+    }
+  ])
+  agent_insertMany(data: [
+    {
+      id: "650e8400-e29b-41d4-a716-446655440002",
+      userId: "550e8400-e29b-41d4-a716-446655440000",
+      createdAt: "2024-04-03T00:00:00Z",
+      name: "Agent 1",
+      status: "active",
+      type: "type1"
+    },
+    {
+      id: "650e8400-e29b-41d4-a716-446655440003",
+      userId: "550e8400-e29b-41d4-a716-446655440001",
+      createdAt: "2024-04-04T00:00:00Z",
+      name: "Agent 2",
+      status: "inactive",
+      type: "type2"
+    }
+  ])
+  run_insertMany(data: [
+    {
+      id: "750e8400-e29b-41d4-a716-446655440004",
+      agentId: "650e8400-e29b-41d4-a716-446655440002",
+      details: "Run details 1",
+      status: "completed",
+      timestamp: "2024-04-05T00:00:00Z"
+    },
+    {
+      id: "750e8400-e29b-41d4-a716-446655440005",
+      agentId: "650e8400-e29b-41d4-a716-446655440003",
+      details: "Run details 2",
+      status: "pending",
+      timestamp: "2024-04-06T00:00:00Z"
+    }
+  ])
+}
