@@ -12,7 +12,8 @@
       "dom"
     ],
     "experimentalDecorators": true,
-    "emitDecoratorMetadata": true
+    "emitDecoratorMetadata": true,
+    "esModuleInterop": true
   },
   "compileOnSave": true,
   "include": [

@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import AgentModal from "../components/AgentModal";
+import EditAgentModal from "../components/EditAgentModal";
 import { dataconnect } from "../lib/firebase";
 import { useGetAgentsForUser } from "@agentrack/sql-sdk/react";
 import { deleteAgent } from "@agentrack/sql-sdk";
@@ -11,6 +12,8 @@ import { deleteAgent } from "@agentrack/sql-sdk";
 export default function Home() {
   const { user, loading, signInWithGoogle, logout } = useAuth();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingAgent, setEditingAgent] = useState<any | null>(null);
+  const [runningId, setRunningId] = useState<string | null>(null);
 
   // Data Connect Hook
   const { data, isLoading: loadingAgents, refetch } = useGetAgentsForUser(dataconnect);
@@ -24,6 +27,36 @@ export default function Home() {
       refetch();
     } catch (e) {
       console.error(e);
+    }
+  }
+
+  const handleRun = async (agentId: string) => {
+    if (!user) return;
+    setRunningId(agentId);
+    try {
+      // Trigger Cloud Function (outreach)
+      // For local testing, we can use the local emulator if running, or the deployed function.
+      // Deployed URL format: https://<region>-agentrackapp.cloudfunctions.net/runOutreachCycle
+      const region = "us-east4"; // Defaulting to us-east4 based on Data Connect location
+      const projectId = "agentrackapp";
+      const baseUrl = `https://${region}-${projectId}.cloudfunctions.net`;
+
+      const response = await fetch(`${baseUrl}/runOutreachCycle?agentId=${agentId}&userId=${user.uid}`, {
+        method: 'POST'
+      });
+
+      const result = await response.json();
+      if (result.success) {
+        alert("Agent cycle triggered successfully!");
+        refetch();
+      } else {
+        alert("Failed to run agent: " + (result.error || "Unknown error"));
+      }
+    } catch (e: any) {
+      console.error("Run error:", e);
+      alert("Error triggering agent. Is the function deployed?");
+    } finally {
+      setRunningId(null);
     }
   }
 
@@ -136,6 +169,15 @@ export default function Home() {
                           <span className="text-slate-500">SQL Record ID</span>
                           <span className="text-slate-300 text-[10px] truncate w-24 text-right" title={agent.id}>{agent.id}</span>
                         </div>
+
+                        {/* Latest Logs Preview */}
+                        <div className="bg-slate-950/50 rounded border border-slate-800 p-2 mt-2">
+                          <div className="text-[10px] text-slate-500 uppercase font-bold mb-1">Latest activity</div>
+                          <div className="text-[10px] text-slate-400 font-mono line-clamp-3">
+                            {agent.status === 'RUNNING' ? '> Agent is currently active...' : (agent.lastRun ? '> Cycle completed successfully.' : '> Awaiting manual trigger...')}
+                          </div>
+                        </div>
+
                         <div className="w-full bg-slate-800 rounded-full h-1.5">
                           <div className="bg-blue-700 h-1.5 rounded-full" style={{ width: '100%' }}></div>
                         </div>
@@ -146,8 +188,20 @@ export default function Home() {
                         {agent.lastRun ? `Last run: ${new Date(agent.lastRun).toLocaleTimeString()}` : 'Never run'}
                       </span>
                       <div className="flex gap-3">
+                        <button
+                          onClick={() => handleRun(agent.id)}
+                          disabled={runningId === agent.id}
+                          className="px-3 py-1 bg-green-900/40 text-green-400 hover:bg-green-800/60 rounded text-[10px] font-bold uppercase tracking-tight transition-colors border border-green-900/50"
+                        >
+                          {runningId === agent.id ? "Running..." : "Run Now"}
+                        </button>
                         <button onClick={(e) => { e.stopPropagation(); handleDelete(agent.id); }} className="text-xs text-red-900 hover:text-red-500">Del</button>
-                        <button className="text-xs text-slate-300 hover:text-white hover:underline">Configure &rarr;</button>
+                        <button
+                          onClick={() => setEditingAgent(agent)}
+                          className="text-xs text-slate-300 hover:text-white hover:underline"
+                        >
+                          Configure &rarr;
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -159,6 +213,15 @@ export default function Home() {
               setIsModalOpen(false);
               refetch();
             }} />
+
+            <EditAgentModal
+              isOpen={!!editingAgent}
+              agent={editingAgent}
+              onClose={() => {
+                setEditingAgent(null);
+                refetch();
+              }}
+            />
           </>
         )}
       </main>

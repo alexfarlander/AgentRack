@@ -14,15 +14,17 @@
     },
     "main": "lib/index.js",
     "dependencies": {
-        "firebase-admin": "^11.8.0",
-        "firebase-functions": "^4.3.1",
-        "firebase": "^11.3.0",
         "@agentrack/shared": "file:./libs/shared",
-        "@agentrack/sql-sdk": "file:./libs/sql-sdk"
+        "@agentrack/sql-sdk": "file:./libs/sql-sdk",
+        "cors": "^2.8.5",
+        "firebase": "^11.3.0",
+        "firebase-admin": "^11.8.0",
+        "firebase-functions": "^4.3.1"
     },
     "devDependencies": {
-        "typescript": "^4.9.0",
-        "firebase-functions-test": "^3.1.0"
+        "@types/cors": "^2.8.19",
+        "firebase-functions-test": "^3.1.0",
+        "typescript": "^4.9.0"
     },
     "private": true
 }
