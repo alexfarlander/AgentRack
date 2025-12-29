@@ -8,6 +8,7 @@ type User @table {
 }
 
 type Agent @table {
+  id: UUID!
   user: User!
   name: String!
   type: String!

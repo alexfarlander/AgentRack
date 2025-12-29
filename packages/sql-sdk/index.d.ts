@@ -20,7 +20,7 @@ export interface CreateAgentWithIdData {
 }
 
 export interface CreateAgentWithIdVariables {
-  id?: UUIDString | null;
+  id: UUIDString;
   name: string;
   type: string;
   status: string;

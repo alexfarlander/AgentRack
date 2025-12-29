@@ -25,6 +25,10 @@ export default function AgentModal({ isOpen, onClose }: AgentModalProps) {
         setLoading(true);
 
         try {
+            const agentId = crypto.randomUUID();
+            console.log("Creating agent with ID:", agentId);
+            console.log("Agent Type:", type);
+
             const settings = {
                 itemsPerDay: 30,
                 targetAudience: "Marketing Agencies",
@@ -32,15 +36,16 @@ export default function AgentModal({ isOpen, onClose }: AgentModalProps) {
             };
 
             await createAgentWithId(dataconnect, {
-                id: crypto.randomUUID(),
+                id: agentId,
                 name,
                 type,
                 status: "IDLE",
                 settings: JSON.stringify(settings)
             });
             onClose();
-        } catch (error) {
-            console.error("Error creating agent", error);
+        } catch (error: any) {
+            console.error("Error creating agent - FULL ERROR:", error);
+            alert(`Creation Error: ${error.message}\nCheck terminal/console for details.`);
         } finally {
             setLoading(false);
         }

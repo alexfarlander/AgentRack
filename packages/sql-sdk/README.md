@@ -563,7 +563,7 @@ The `CreateAgentWithId` mutation requires an argument of type `CreateAgentWithId
 
 ```typescript
 export interface CreateAgentWithIdVariables {
-  id?: UUIDString | null;
+  id: UUIDString;
   name: string;
   type: string;
   status: string;
@@ -588,7 +588,7 @@ import { connectorConfig, createAgentWithId, CreateAgentWithIdVariables } from '
 
 // The `CreateAgentWithId` mutation requires an argument of type `CreateAgentWithIdVariables`:
 const createAgentWithIdVars: CreateAgentWithIdVariables = {
-  id: ..., // optional
+  id: ..., 
   name: ..., 
   type: ..., 
   status: ..., 
@@ -623,7 +623,7 @@ import { connectorConfig, createAgentWithIdRef, CreateAgentWithIdVariables } fro
 
 // The `CreateAgentWithId` mutation requires an argument of type `CreateAgentWithIdVariables`:
 const createAgentWithIdVars: CreateAgentWithIdVariables = {
-  id: ..., // optional
+  id: ..., 
   name: ..., 
   type: ..., 
   status: ..., 

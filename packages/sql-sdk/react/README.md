@@ -522,7 +522,7 @@ The `CreateAgentWithId` Mutation requires an argument of type `CreateAgentWithId
 
 ```javascript
 export interface CreateAgentWithIdVariables {
-  id?: UUIDString | null;
+  id: UUIDString;
   name: string;
   type: string;
   status: string;
@@ -577,7 +577,7 @@ export default function CreateAgentWithIdComponent() {
   // After calling the Mutation hook function, you must call `UseMutationResult.mutate()` to execute the Mutation.
   // The `useCreateAgentWithId` Mutation requires an argument of type `CreateAgentWithIdVariables`:
   const createAgentWithIdVars: CreateAgentWithIdVariables = {
-    id: ..., // optional
+    id: ..., 
     name: ..., 
     type: ..., 
     status: ..., 
