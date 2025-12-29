@@ -1,4 +1,4 @@
-import { createUserRef, updateUserRef, getAgentsForUserRef, createAgentRef, updateAgentRef, deleteAgentRef, getAgentRef, createRunRef, connectorConfig } from '../../esm/index.esm.js';
+import { createUserRef, updateUserRef, getAgentsForUserRef, createAgentWithIdRef, updateAgentRef, deleteAgentRef, getAgentRef, createRunRef, connectorConfig } from '../../esm/index.esm.js';
 import { validateArgs, CallerSdkTypeEnum } from 'firebase/data-connect';
 import { useDataConnectQuery, useDataConnectMutation, validateReactArgs } from '@tanstack-query-firebase/react/data-connect';
 
@@ -24,10 +24,10 @@ export function useGetAgentsForUser(dcOrOptions, options) {
   const ref = getAgentsForUserRef(dcInstance);
   return useDataConnectQuery(ref, inputOpts, CallerSdkTypeEnum.GeneratedReact);
 }
-export function useCreateAgent(dcOrOptions, options) {
+export function useCreateAgentWithId(dcOrOptions, options) {
   const { dc: dcInstance, vars: inputOpts } = validateArgs(connectorConfig, dcOrOptions, options);
   function refFactory(vars) {
-    return createAgentRef(dcInstance, vars);
+    return createAgentWithIdRef(dcInstance, vars);
   }
   return useDataConnectMutation(refFactory, inputOpts, CallerSdkTypeEnum.GeneratedReact);
 }

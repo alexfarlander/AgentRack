@@ -43,16 +43,16 @@ exports.getAgentsForUser = function getAgentsForUser(dc) {
   return executeQuery(getAgentsForUserRef(dc));
 };
 
-const createAgentRef = (dcOrVars, vars) => {
+const createAgentWithIdRef = (dcOrVars, vars) => {
   const { dc: dcInstance, vars: inputVars} = validateArgs(connectorConfig, dcOrVars, vars, true);
   dcInstance._useGeneratedSdk();
-  return mutationRef(dcInstance, 'CreateAgent', inputVars);
+  return mutationRef(dcInstance, 'CreateAgentWithId', inputVars);
 }
-createAgentRef.operationName = 'CreateAgent';
-exports.createAgentRef = createAgentRef;
+createAgentWithIdRef.operationName = 'CreateAgentWithId';
+exports.createAgentWithIdRef = createAgentWithIdRef;
 
-exports.createAgent = function createAgent(dcOrVars, vars) {
-  return executeMutation(createAgentRef(dcOrVars, vars));
+exports.createAgentWithId = function createAgentWithId(dcOrVars, vars) {
+  return executeMutation(createAgentWithIdRef(dcOrVars, vars));
 };
 
 const updateAgentRef = (dcOrVars, vars) => {

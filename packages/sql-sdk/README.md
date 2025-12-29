@@ -15,7 +15,7 @@ This README will guide you through the process of using the generated JavaScript
 - [**Mutations**](#mutations)
   - [*CreateUser*](#createuser)
   - [*UpdateUser*](#updateuser)
-  - [*CreateAgent*](#createagent)
+  - [*CreateAgentWithId*](#createagentwithid)
   - [*UpdateAgent*](#updateagent)
   - [*DeleteAgent*](#deleteagent)
   - [*CreateRun*](#createrun)
@@ -529,40 +529,40 @@ executeMutation(ref).then((response) => {
 });
 ```
 
-## CreateAgent
-You can execute the `CreateAgent` mutation using the following action shortcut function, or by calling `executeMutation()` after calling the following `MutationRef` function, both of which are defined in [sql-sdk/index.d.ts](./index.d.ts):
+## CreateAgentWithId
+You can execute the `CreateAgentWithId` mutation using the following action shortcut function, or by calling `executeMutation()` after calling the following `MutationRef` function, both of which are defined in [sql-sdk/index.d.ts](./index.d.ts):
 ```typescript
-createAgent(vars: CreateAgentVariables): MutationPromise<CreateAgentData, CreateAgentVariables>;
+createAgentWithId(vars: CreateAgentWithIdVariables): MutationPromise<CreateAgentWithIdData, CreateAgentWithIdVariables>;
 
-interface CreateAgentRef {
+interface CreateAgentWithIdRef {
   ...
   /* Allow users to create refs without passing in DataConnect */
-  (vars: CreateAgentVariables): MutationRef<CreateAgentData, CreateAgentVariables>;
+  (vars: CreateAgentWithIdVariables): MutationRef<CreateAgentWithIdData, CreateAgentWithIdVariables>;
 }
-export const createAgentRef: CreateAgentRef;
+export const createAgentWithIdRef: CreateAgentWithIdRef;
 ```
 You can also pass in a `DataConnect` instance to the action shortcut function or `MutationRef` function.
 ```typescript
-createAgent(dc: DataConnect, vars: CreateAgentVariables): MutationPromise<CreateAgentData, CreateAgentVariables>;
+createAgentWithId(dc: DataConnect, vars: CreateAgentWithIdVariables): MutationPromise<CreateAgentWithIdData, CreateAgentWithIdVariables>;
 
-interface CreateAgentRef {
+interface CreateAgentWithIdRef {
   ...
-  (dc: DataConnect, vars: CreateAgentVariables): MutationRef<CreateAgentData, CreateAgentVariables>;
+  (dc: DataConnect, vars: CreateAgentWithIdVariables): MutationRef<CreateAgentWithIdData, CreateAgentWithIdVariables>;
 }
-export const createAgentRef: CreateAgentRef;
+export const createAgentWithIdRef: CreateAgentWithIdRef;
 ```
 
-If you need the name of the operation without creating a ref, you can retrieve the operation name by calling the `operationName` property on the createAgentRef:
+If you need the name of the operation without creating a ref, you can retrieve the operation name by calling the `operationName` property on the createAgentWithIdRef:
 ```typescript
-const name = createAgentRef.operationName;
+const name = createAgentWithIdRef.operationName;
 console.log(name);
 ```
 
 ### Variables
-The `CreateAgent` mutation requires an argument of type `CreateAgentVariables`, which is defined in [sql-sdk/index.d.ts](./index.d.ts). It has the following fields:
+The `CreateAgentWithId` mutation requires an argument of type `CreateAgentWithIdVariables`, which is defined in [sql-sdk/index.d.ts](./index.d.ts). It has the following fields:
 
 ```typescript
-export interface CreateAgentVariables {
+export interface CreateAgentWithIdVariables {
   id?: UUIDString | null;
   name: string;
   type: string;
@@ -572,22 +572,22 @@ export interface CreateAgentVariables {
 }
 ```
 ### Return Type
-Recall that executing the `CreateAgent` mutation returns a `MutationPromise` that resolves to an object with a `data` property.
+Recall that executing the `CreateAgentWithId` mutation returns a `MutationPromise` that resolves to an object with a `data` property.
 
-The `data` property is an object of type `CreateAgentData`, which is defined in [sql-sdk/index.d.ts](./index.d.ts). It has the following fields:
+The `data` property is an object of type `CreateAgentWithIdData`, which is defined in [sql-sdk/index.d.ts](./index.d.ts). It has the following fields:
 ```typescript
-export interface CreateAgentData {
+export interface CreateAgentWithIdData {
   agent_insert: Agent_Key;
 }
 ```
-### Using `CreateAgent`'s action shortcut function
+### Using `CreateAgentWithId`'s action shortcut function
 
 ```typescript
 import { getDataConnect } from 'firebase/data-connect';
-import { connectorConfig, createAgent, CreateAgentVariables } from '@agentrack/sql-sdk';
+import { connectorConfig, createAgentWithId, CreateAgentWithIdVariables } from '@agentrack/sql-sdk';
 
-// The `CreateAgent` mutation requires an argument of type `CreateAgentVariables`:
-const createAgentVars: CreateAgentVariables = {
+// The `CreateAgentWithId` mutation requires an argument of type `CreateAgentWithIdVariables`:
+const createAgentWithIdVars: CreateAgentWithIdVariables = {
   id: ..., // optional
   name: ..., 
   type: ..., 
@@ -596,33 +596,33 @@ const createAgentVars: CreateAgentVariables = {
   settings: ..., // optional
 };
 
-// Call the `createAgent()` function to execute the mutation.
+// Call the `createAgentWithId()` function to execute the mutation.
 // You can use the `await` keyword to wait for the promise to resolve.
-const { data } = await createAgent(createAgentVars);
+const { data } = await createAgentWithId(createAgentWithIdVars);
 // Variables can be defined inline as well.
-const { data } = await createAgent({ id: ..., name: ..., type: ..., status: ..., schedule: ..., settings: ..., });
+const { data } = await createAgentWithId({ id: ..., name: ..., type: ..., status: ..., schedule: ..., settings: ..., });
 
 // You can also pass in a `DataConnect` instance to the action shortcut function.
 const dataConnect = getDataConnect(connectorConfig);
-const { data } = await createAgent(dataConnect, createAgentVars);
+const { data } = await createAgentWithId(dataConnect, createAgentWithIdVars);
 
 console.log(data.agent_insert);
 
 // Or, you can use the `Promise` API.
-createAgent(createAgentVars).then((response) => {
+createAgentWithId(createAgentWithIdVars).then((response) => {
   const data = response.data;
   console.log(data.agent_insert);
 });
 ```
 
-### Using `CreateAgent`'s `MutationRef` function
+### Using `CreateAgentWithId`'s `MutationRef` function
 
 ```typescript
 import { getDataConnect, executeMutation } from 'firebase/data-connect';
-import { connectorConfig, createAgentRef, CreateAgentVariables } from '@agentrack/sql-sdk';
+import { connectorConfig, createAgentWithIdRef, CreateAgentWithIdVariables } from '@agentrack/sql-sdk';
 
-// The `CreateAgent` mutation requires an argument of type `CreateAgentVariables`:
-const createAgentVars: CreateAgentVariables = {
+// The `CreateAgentWithId` mutation requires an argument of type `CreateAgentWithIdVariables`:
+const createAgentWithIdVars: CreateAgentWithIdVariables = {
   id: ..., // optional
   name: ..., 
   type: ..., 
@@ -631,14 +631,14 @@ const createAgentVars: CreateAgentVariables = {
   settings: ..., // optional
 };
 
-// Call the `createAgentRef()` function to get a reference to the mutation.
-const ref = createAgentRef(createAgentVars);
+// Call the `createAgentWithIdRef()` function to get a reference to the mutation.
+const ref = createAgentWithIdRef(createAgentWithIdVars);
 // Variables can be defined inline as well.
-const ref = createAgentRef({ id: ..., name: ..., type: ..., status: ..., schedule: ..., settings: ..., });
+const ref = createAgentWithIdRef({ id: ..., name: ..., type: ..., status: ..., schedule: ..., settings: ..., });
 
 // You can also pass in a `DataConnect` instance to the `MutationRef` function.
 const dataConnect = getDataConnect(connectorConfig);
-const ref = createAgentRef(dataConnect, createAgentVars);
+const ref = createAgentWithIdRef(dataConnect, createAgentWithIdVars);
 
 // Call `executeMutation()` on the reference to execute the mutation.
 // You can use the `await` keyword to wait for the promise to resolve.

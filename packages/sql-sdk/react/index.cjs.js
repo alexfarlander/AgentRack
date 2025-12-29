@@ -1,4 +1,4 @@
-const { createUserRef, updateUserRef, getAgentsForUserRef, createAgentRef, updateAgentRef, deleteAgentRef, getAgentRef, createRunRef, connectorConfig } = require('../index.cjs.js');
+const { createUserRef, updateUserRef, getAgentsForUserRef, createAgentWithIdRef, updateAgentRef, deleteAgentRef, getAgentRef, createRunRef, connectorConfig } = require('../index.cjs.js');
 const { validateArgs, CallerSdkTypeEnum } = require('firebase/data-connect');
 const { useDataConnectQuery, useDataConnectMutation, validateReactArgs } = require('@tanstack-query-firebase/react/data-connect');
 
@@ -24,10 +24,10 @@ exports.useGetAgentsForUser = function useGetAgentsForUser(dcOrOptions, options)
   const ref = getAgentsForUserRef(dcInstance);
   return useDataConnectQuery(ref, inputOpts, CallerSdkTypeEnum.GeneratedReact);
 }
-exports.useCreateAgent = function useCreateAgent(dcOrOptions, options) {
+exports.useCreateAgentWithId = function useCreateAgentWithId(dcOrOptions, options) {
   const { dc: dcInstance, vars: inputOpts } = validateArgs(connectorConfig, dcOrOptions, options);
   function refFactory(vars) {
-    return createAgentRef(dcInstance, vars);
+    return createAgentWithIdRef(dcInstance, vars);
   }
   return useDataConnectMutation(refFactory, inputOpts, CallerSdkTypeEnum.GeneratedReact);
 }

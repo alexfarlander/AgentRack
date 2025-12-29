@@ -1,4 +1,4 @@
-import { CreateUserData, CreateUserVariables, UpdateUserData, UpdateUserVariables, GetAgentsForUserData, CreateAgentData, CreateAgentVariables, UpdateAgentData, UpdateAgentVariables, DeleteAgentData, DeleteAgentVariables, GetAgentData, GetAgentVariables, CreateRunData, CreateRunVariables } from '../';
+import { CreateUserData, CreateUserVariables, UpdateUserData, UpdateUserVariables, GetAgentsForUserData, CreateAgentWithIdData, CreateAgentWithIdVariables, UpdateAgentData, UpdateAgentVariables, DeleteAgentData, DeleteAgentVariables, GetAgentData, GetAgentVariables, CreateRunData, CreateRunVariables } from '../';
 import { UseDataConnectQueryResult, useDataConnectQueryOptions, UseDataConnectMutationResult, useDataConnectMutationOptions} from '@tanstack-query-firebase/react/data-connect';
 import { UseQueryResult, UseMutationResult} from '@tanstack/react-query';
 import { DataConnect } from 'firebase/data-connect';
@@ -14,8 +14,8 @@ export function useUpdateUser(dc: DataConnect, options?: useDataConnectMutationO
 export function useGetAgentsForUser(options?: useDataConnectQueryOptions<GetAgentsForUserData>): UseDataConnectQueryResult<GetAgentsForUserData, undefined>;
 export function useGetAgentsForUser(dc: DataConnect, options?: useDataConnectQueryOptions<GetAgentsForUserData>): UseDataConnectQueryResult<GetAgentsForUserData, undefined>;
 
-export function useCreateAgent(options?: useDataConnectMutationOptions<CreateAgentData, FirebaseError, CreateAgentVariables>): UseDataConnectMutationResult<CreateAgentData, CreateAgentVariables>;
-export function useCreateAgent(dc: DataConnect, options?: useDataConnectMutationOptions<CreateAgentData, FirebaseError, CreateAgentVariables>): UseDataConnectMutationResult<CreateAgentData, CreateAgentVariables>;
+export function useCreateAgentWithId(options?: useDataConnectMutationOptions<CreateAgentWithIdData, FirebaseError, CreateAgentWithIdVariables>): UseDataConnectMutationResult<CreateAgentWithIdData, CreateAgentWithIdVariables>;
+export function useCreateAgentWithId(dc: DataConnect, options?: useDataConnectMutationOptions<CreateAgentWithIdData, FirebaseError, CreateAgentWithIdVariables>): UseDataConnectMutationResult<CreateAgentWithIdData, CreateAgentWithIdVariables>;
 
 export function useUpdateAgent(options?: useDataConnectMutationOptions<UpdateAgentData, FirebaseError, UpdateAgentVariables>): UseDataConnectMutationResult<UpdateAgentData, UpdateAgentVariables>;
 export function useUpdateAgent(dc: DataConnect, options?: useDataConnectMutationOptions<UpdateAgentData, FirebaseError, UpdateAgentVariables>): UseDataConnectMutationResult<UpdateAgentData, UpdateAgentVariables>;

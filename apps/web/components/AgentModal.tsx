@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { dataconnect } from "../lib/firebase";
-import { createAgent } from "@agentrack/sql-sdk";
+import { createAgentWithId } from "@agentrack/sql-sdk";
 import { useAuth } from "../context/AuthContext";
 import { AgentConfig, OutreachSettings } from "@agentrack/shared";
 
@@ -31,7 +31,7 @@ export default function AgentModal({ isOpen, onClose }: AgentModalProps) {
                 emailTemplate: "Hi {{name}}, ..."
             };
 
-            await createAgent(dataconnect, {
+            await createAgentWithId(dataconnect, {
                 id: crypto.randomUUID(),
                 name,
                 type,

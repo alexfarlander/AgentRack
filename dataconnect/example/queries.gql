@@ -22,7 +22,7 @@ query GetAgentsForUser @auth(level: USER) {
   }
 }
 
-mutation CreateAgent($id: UUID, $name: String!, $type: String!, $status: String!, $schedule: String, $settings: String) @auth(level: USER) {
+mutation CreateAgentWithId($id: UUID, $name: String!, $type: String!, $status: String!, $schedule: String, $settings: String) @auth(level: USER) {
   agent_insert(data: {
     id: $id,
     name: $name,

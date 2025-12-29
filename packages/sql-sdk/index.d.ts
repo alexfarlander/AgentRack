@@ -15,11 +15,11 @@ export interface Agent_Key {
   __typename?: 'Agent_Key';
 }
 
-export interface CreateAgentData {
+export interface CreateAgentWithIdData {
   agent_insert: Agent_Key;
 }
 
-export interface CreateAgentVariables {
+export interface CreateAgentWithIdVariables {
   id?: UUIDString | null;
   name: string;
   type: string;
@@ -156,17 +156,17 @@ export const getAgentsForUserRef: GetAgentsForUserRef;
 export function getAgentsForUser(): QueryPromise<GetAgentsForUserData, undefined>;
 export function getAgentsForUser(dc: DataConnect): QueryPromise<GetAgentsForUserData, undefined>;
 
-interface CreateAgentRef {
+interface CreateAgentWithIdRef {
   /* Allow users to create refs without passing in DataConnect */
-  (vars: CreateAgentVariables): MutationRef<CreateAgentData, CreateAgentVariables>;
+  (vars: CreateAgentWithIdVariables): MutationRef<CreateAgentWithIdData, CreateAgentWithIdVariables>;
   /* Allow users to pass in custom DataConnect instances */
-  (dc: DataConnect, vars: CreateAgentVariables): MutationRef<CreateAgentData, CreateAgentVariables>;
+  (dc: DataConnect, vars: CreateAgentWithIdVariables): MutationRef<CreateAgentWithIdData, CreateAgentWithIdVariables>;
   operationName: string;
 }
-export const createAgentRef: CreateAgentRef;
+export const createAgentWithIdRef: CreateAgentWithIdRef;
 
-export function createAgent(vars: CreateAgentVariables): MutationPromise<CreateAgentData, CreateAgentVariables>;
-export function createAgent(dc: DataConnect, vars: CreateAgentVariables): MutationPromise<CreateAgentData, CreateAgentVariables>;
+export function createAgentWithId(vars: CreateAgentWithIdVariables): MutationPromise<CreateAgentWithIdData, CreateAgentWithIdVariables>;
+export function createAgentWithId(dc: DataConnect, vars: CreateAgentWithIdVariables): MutationPromise<CreateAgentWithIdData, CreateAgentWithIdVariables>;
 
 interface UpdateAgentRef {
   /* Allow users to create refs without passing in DataConnect */

@@ -22,7 +22,7 @@ You can also follow the instructions from the [Data Connect documentation](https
 - [**Mutations**](#mutations)
   - [*CreateUser*](#createuser)
   - [*UpdateUser*](#updateuser)
-  - [*CreateAgent*](#createagent)
+  - [*CreateAgentWithId*](#createagentwithid)
   - [*UpdateAgent*](#updateagent)
   - [*DeleteAgent*](#deleteagent)
   - [*CreateRun*](#createrun)
@@ -507,21 +507,21 @@ export default function UpdateUserComponent() {
 }
 ```
 
-## CreateAgent
-You can execute the `CreateAgent` Mutation using the `UseMutationResult` object returned by the following Mutation hook function (which is defined in [sql-sdk/react/index.d.ts](./index.d.ts)):
+## CreateAgentWithId
+You can execute the `CreateAgentWithId` Mutation using the `UseMutationResult` object returned by the following Mutation hook function (which is defined in [sql-sdk/react/index.d.ts](./index.d.ts)):
 ```javascript
-useCreateAgent(options?: useDataConnectMutationOptions<CreateAgentData, FirebaseError, CreateAgentVariables>): UseDataConnectMutationResult<CreateAgentData, CreateAgentVariables>;
+useCreateAgentWithId(options?: useDataConnectMutationOptions<CreateAgentWithIdData, FirebaseError, CreateAgentWithIdVariables>): UseDataConnectMutationResult<CreateAgentWithIdData, CreateAgentWithIdVariables>;
 ```
 You can also pass in a `DataConnect` instance to the Mutation hook function.
 ```javascript
-useCreateAgent(dc: DataConnect, options?: useDataConnectMutationOptions<CreateAgentData, FirebaseError, CreateAgentVariables>): UseDataConnectMutationResult<CreateAgentData, CreateAgentVariables>;
+useCreateAgentWithId(dc: DataConnect, options?: useDataConnectMutationOptions<CreateAgentWithIdData, FirebaseError, CreateAgentWithIdVariables>): UseDataConnectMutationResult<CreateAgentWithIdData, CreateAgentWithIdVariables>;
 ```
 
 ### Variables
-The `CreateAgent` Mutation requires an argument of type `CreateAgentVariables`, which is defined in [sql-sdk/index.d.ts](../index.d.ts). It has the following fields:
+The `CreateAgentWithId` Mutation requires an argument of type `CreateAgentWithIdVariables`, which is defined in [sql-sdk/index.d.ts](../index.d.ts). It has the following fields:
 
 ```javascript
-export interface CreateAgentVariables {
+export interface CreateAgentWithIdVariables {
   id?: UUIDString | null;
   name: string;
   type: string;
@@ -531,52 +531,52 @@ export interface CreateAgentVariables {
 }
 ```
 ### Return Type
-Recall that calling the `CreateAgent` Mutation hook function returns a `UseMutationResult` object. This object holds the state of your Mutation, including whether the Mutation is loading, has completed, or has succeeded/failed, among other things.
+Recall that calling the `CreateAgentWithId` Mutation hook function returns a `UseMutationResult` object. This object holds the state of your Mutation, including whether the Mutation is loading, has completed, or has succeeded/failed, among other things.
 
 To check the status of a Mutation, use the `UseMutationResult.status` field. You can also check for pending / success / error status using the `UseMutationResult.isPending`, `UseMutationResult.isSuccess`, and `UseMutationResult.isError` fields.
 
 To execute the Mutation, call `UseMutationResult.mutate()`. This function executes the Mutation, but does not return the data from the Mutation.
 
-To access the data returned by a Mutation, use the `UseMutationResult.data` field. The data for the `CreateAgent` Mutation is of type `CreateAgentData`, which is defined in [sql-sdk/index.d.ts](../index.d.ts). It has the following fields:
+To access the data returned by a Mutation, use the `UseMutationResult.data` field. The data for the `CreateAgentWithId` Mutation is of type `CreateAgentWithIdData`, which is defined in [sql-sdk/index.d.ts](../index.d.ts). It has the following fields:
 ```javascript
-export interface CreateAgentData {
+export interface CreateAgentWithIdData {
   agent_insert: Agent_Key;
 }
 ```
 
 To learn more about the `UseMutationResult` object, see the [TanStack React Query documentation](https://tanstack.com/query/v5/docs/framework/react/reference/useMutation).
 
-### Using `CreateAgent`'s Mutation hook function
+### Using `CreateAgentWithId`'s Mutation hook function
 
 ```javascript
 import { getDataConnect } from 'firebase/data-connect';
-import { connectorConfig, CreateAgentVariables } from '@agentrack/sql-sdk';
-import { useCreateAgent } from '@agentrack/sql-sdk/react'
+import { connectorConfig, CreateAgentWithIdVariables } from '@agentrack/sql-sdk';
+import { useCreateAgentWithId } from '@agentrack/sql-sdk/react'
 
-export default function CreateAgentComponent() {
+export default function CreateAgentWithIdComponent() {
   // Call the Mutation hook function to get a `UseMutationResult` object which holds the state of your Mutation.
-  const mutation = useCreateAgent();
+  const mutation = useCreateAgentWithId();
 
   // You can also pass in a `DataConnect` instance to the Mutation hook function.
   const dataConnect = getDataConnect(connectorConfig);
-  const mutation = useCreateAgent(dataConnect);
+  const mutation = useCreateAgentWithId(dataConnect);
 
   // You can also pass in a `useDataConnectMutationOptions` object to the Mutation hook function.
   const options = {
     onSuccess: () => { console.log('Mutation succeeded!'); }
   };
-  const mutation = useCreateAgent(options);
+  const mutation = useCreateAgentWithId(options);
 
   // You can also pass both a `DataConnect` instance and a `useDataConnectMutationOptions` object.
   const dataConnect = getDataConnect(connectorConfig);
   const options = {
     onSuccess: () => { console.log('Mutation succeeded!'); }
   };
-  const mutation = useCreateAgent(dataConnect, options);
+  const mutation = useCreateAgentWithId(dataConnect, options);
 
   // After calling the Mutation hook function, you must call `UseMutationResult.mutate()` to execute the Mutation.
-  // The `useCreateAgent` Mutation requires an argument of type `CreateAgentVariables`:
-  const createAgentVars: CreateAgentVariables = {
+  // The `useCreateAgentWithId` Mutation requires an argument of type `CreateAgentWithIdVariables`:
+  const createAgentWithIdVars: CreateAgentWithIdVariables = {
     id: ..., // optional
     name: ..., 
     type: ..., 
@@ -584,7 +584,7 @@ export default function CreateAgentComponent() {
     schedule: ..., // optional
     settings: ..., // optional
   };
-  mutation.mutate(createAgentVars);
+  mutation.mutate(createAgentWithIdVars);
   // Variables can be defined inline as well.
   mutation.mutate({ id: ..., name: ..., type: ..., status: ..., schedule: ..., settings: ..., });
 
@@ -592,7 +592,7 @@ export default function CreateAgentComponent() {
   const options = {
     onSuccess: () => { console.log('Mutation succeeded!'); }
   };
-  mutation.mutate(createAgentVars, options);
+  mutation.mutate(createAgentWithIdVars, options);
 
   // Then, you can render your component dynamically based on the status of the Mutation.
   if (mutation.isPending) {
