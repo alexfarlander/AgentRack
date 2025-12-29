@@ -1,11 +1,11 @@
 # Generated React README
 This README will guide you through the process of using the generated React SDK package for the connector `example`. It will also provide examples on how to use your generated SDK to call your Data Connect queries and mutations.
 
-**If you're looking for the `JavaScript README`, you can find it at [`dataconnect-generated/README.md`](../README.md)**
+**If you're looking for the `JavaScript README`, you can find it at [`sql-sdk/README.md`](../README.md)**
 
 ***NOTE:** This README is generated alongside the generated SDK. If you make changes to this file, they will be overwritten when the SDK is regenerated.*
 
-You can use this generated SDK by importing from the package `@dataconnect/generated/react` as shown below. Both CommonJS and ESM imports are supported.
+You can use this generated SDK by importing from the package `@agentrack/sql-sdk/react` as shown below. Both CommonJS and ESM imports are supported.
 
 You can also follow the instructions from the [Data Connect documentation](https://firebase.google.com/docs/data-connect/web-sdk#react).
 
@@ -18,11 +18,14 @@ You can also follow the instructions from the [Data Connect documentation](https
   - [*Connecting to the local Emulator*](#connecting-to-the-local-emulator)
 - [**Queries**](#queries)
   - [*GetAgentsForUser*](#getagentsforuser)
+  - [*GetAgent*](#getagent)
 - [**Mutations**](#mutations)
   - [*CreateUser*](#createuser)
+  - [*UpdateUser*](#updateuser)
   - [*CreateAgent*](#createagent)
   - [*UpdateAgent*](#updateagent)
   - [*DeleteAgent*](#deleteagent)
+  - [*CreateRun*](#createrun)
 
 # TanStack Query Firebase & TanStack React Query
 This SDK provides [React](https://react.dev/) hooks generated specific to your application, for the operations found in the connector `example`. These hooks are generated using [TanStack Query Firebase](https://react-query-firebase.invertase.dev/) by our partners at Invertase, a library built on top of [TanStack React Query v5](https://tanstack.com/query/v5/docs/framework/react/overview).
@@ -68,7 +71,7 @@ You can find more information about connectors in the [Data Connect documentatio
 
 ```javascript
 import { getDataConnect } from 'firebase/data-connect';
-import { connectorConfig } from '@dataconnect/generated';
+import { connectorConfig } from '@agentrack/sql-sdk';
 
 const dataConnect = getDataConnect(connectorConfig);
 ```
@@ -81,7 +84,7 @@ You can also follow the emulator instructions from the [Data Connect documentati
 
 ```javascript
 import { connectDataConnectEmulator, getDataConnect } from 'firebase/data-connect';
-import { connectorConfig } from '@dataconnect/generated';
+import { connectorConfig } from '@agentrack/sql-sdk';
 
 const dataConnect = getDataConnect(connectorConfig);
 connectDataConnectEmulator(dataConnect, 'localhost', 9399);
@@ -115,7 +118,7 @@ Here's a general overview of how to use the generated Query hooks in your code:
 Below are examples of how to use the `example` connector's generated Query hook functions to execute each Query. You can also follow the examples from the [Data Connect documentation](https://firebase.google.com/docs/data-connect/web-sdk#operations-react-angular).
 
 ## GetAgentsForUser
-You can execute the `GetAgentsForUser` Query using the following Query hook function, which is defined in [dataconnect-generated/react/index.d.ts](./index.d.ts):
+You can execute the `GetAgentsForUser` Query using the following Query hook function, which is defined in [sql-sdk/react/index.d.ts](./index.d.ts):
 
 ```javascript
 useGetAgentsForUser(dc: DataConnect, options?: useDataConnectQueryOptions<GetAgentsForUserData>): UseDataConnectQueryResult<GetAgentsForUserData, undefined>;
@@ -132,7 +135,7 @@ Recall that calling the `GetAgentsForUser` Query hook function returns a `UseQue
 
 To check the status of a Query, use the `UseQueryResult.status` field. You can also check for pending / success / error status using the `UseQueryResult.isPending`, `UseQueryResult.isSuccess`, and `UseQueryResult.isError` fields.
 
-To access the data returned by a Query, use the `UseQueryResult.data` field. The data for the `GetAgentsForUser` Query is of type `GetAgentsForUserData`, which is defined in [dataconnect-generated/index.d.ts](../index.d.ts). It has the following fields:
+To access the data returned by a Query, use the `UseQueryResult.data` field. The data for the `GetAgentsForUser` Query is of type `GetAgentsForUserData`, which is defined in [sql-sdk/index.d.ts](../index.d.ts). It has the following fields:
 ```javascript
 export interface GetAgentsForUserData {
   agents: ({
@@ -154,8 +157,8 @@ To learn more about the `UseQueryResult` object, see the [TanStack React Query d
 
 ```javascript
 import { getDataConnect } from 'firebase/data-connect';
-import { connectorConfig } from '@dataconnect/generated';
-import { useGetAgentsForUser } from '@dataconnect/generated/react'
+import { connectorConfig } from '@agentrack/sql-sdk';
+import { useGetAgentsForUser } from '@agentrack/sql-sdk/react'
 
 export default function GetAgentsForUserComponent() {
   // You don't have to do anything to "execute" the Query.
@@ -192,6 +195,95 @@ export default function GetAgentsForUserComponent() {
 }
 ```
 
+## GetAgent
+You can execute the `GetAgent` Query using the following Query hook function, which is defined in [sql-sdk/react/index.d.ts](./index.d.ts):
+
+```javascript
+useGetAgent(dc: DataConnect, vars: GetAgentVariables, options?: useDataConnectQueryOptions<GetAgentData>): UseDataConnectQueryResult<GetAgentData, GetAgentVariables>;
+```
+You can also pass in a `DataConnect` instance to the Query hook function.
+```javascript
+useGetAgent(vars: GetAgentVariables, options?: useDataConnectQueryOptions<GetAgentData>): UseDataConnectQueryResult<GetAgentData, GetAgentVariables>;
+```
+
+### Variables
+The `GetAgent` Query requires an argument of type `GetAgentVariables`, which is defined in [sql-sdk/index.d.ts](../index.d.ts). It has the following fields:
+
+```javascript
+export interface GetAgentVariables {
+  id: UUIDString;
+}
+```
+### Return Type
+Recall that calling the `GetAgent` Query hook function returns a `UseQueryResult` object. This object holds the state of your Query, including whether the Query is loading, has completed, or has succeeded/failed, and any data returned by the Query, among other things.
+
+To check the status of a Query, use the `UseQueryResult.status` field. You can also check for pending / success / error status using the `UseQueryResult.isPending`, `UseQueryResult.isSuccess`, and `UseQueryResult.isError` fields.
+
+To access the data returned by a Query, use the `UseQueryResult.data` field. The data for the `GetAgent` Query is of type `GetAgentData`, which is defined in [sql-sdk/index.d.ts](../index.d.ts). It has the following fields:
+```javascript
+export interface GetAgentData {
+  agent?: {
+    id: UUIDString;
+    name: string;
+    type: string;
+    status: string;
+    settings?: string | null;
+    lastRun?: TimestampString | null;
+  } & Agent_Key;
+}
+```
+
+To learn more about the `UseQueryResult` object, see the [TanStack React Query documentation](https://tanstack.com/query/v5/docs/framework/react/reference/useQuery).
+
+### Using `GetAgent`'s Query hook function
+
+```javascript
+import { getDataConnect } from 'firebase/data-connect';
+import { connectorConfig, GetAgentVariables } from '@agentrack/sql-sdk';
+import { useGetAgent } from '@agentrack/sql-sdk/react'
+
+export default function GetAgentComponent() {
+  // The `useGetAgent` Query hook requires an argument of type `GetAgentVariables`:
+  const getAgentVars: GetAgentVariables = {
+    id: ..., 
+  };
+
+  // You don't have to do anything to "execute" the Query.
+  // Call the Query hook function to get a `UseQueryResult` object which holds the state of your Query.
+  const query = useGetAgent(getAgentVars);
+  // Variables can be defined inline as well.
+  const query = useGetAgent({ id: ..., });
+
+  // You can also pass in a `DataConnect` instance to the Query hook function.
+  const dataConnect = getDataConnect(connectorConfig);
+  const query = useGetAgent(dataConnect, getAgentVars);
+
+  // You can also pass in a `useDataConnectQueryOptions` object to the Query hook function.
+  const options = { staleTime: 5 * 1000 };
+  const query = useGetAgent(getAgentVars, options);
+
+  // You can also pass both a `DataConnect` instance and a `useDataConnectQueryOptions` object.
+  const dataConnect = getDataConnect(connectorConfig);
+  const options = { staleTime: 5 * 1000 };
+  const query = useGetAgent(dataConnect, getAgentVars, options);
+
+  // Then, you can render your component dynamically based on the status of the Query.
+  if (query.isPending) {
+    return <div>Loading...</div>;
+  }
+
+  if (query.isError) {
+    return <div>Error: {query.error.message}</div>;
+  }
+
+  // If the Query is successful, you can access the data returned using the `UseQueryResult.data` field.
+  if (query.isSuccess) {
+    console.log(query.data.agent);
+  }
+  return <div>Query execution {query.isSuccess ? 'successful' : 'failed'}!</div>;
+}
+```
+
 # Mutations
 
 The React generated SDK provides Mutations hook functions that call and return [`useDataConnectMutation`](https://react-query-firebase.invertase.dev/react/data-connect/mutations) hooks from TanStack Query Firebase.
@@ -218,7 +310,7 @@ Here's a general overview of how to use the generated Mutation hooks in your cod
 Below are examples of how to use the `example` connector's generated Mutation hook functions to execute each Mutation. You can also follow the examples from the [Data Connect documentation](https://firebase.google.com/docs/data-connect/web-sdk#operations-react-angular).
 
 ## CreateUser
-You can execute the `CreateUser` Mutation using the `UseMutationResult` object returned by the following Mutation hook function (which is defined in [dataconnect-generated/react/index.d.ts](./index.d.ts)):
+You can execute the `CreateUser` Mutation using the `UseMutationResult` object returned by the following Mutation hook function (which is defined in [sql-sdk/react/index.d.ts](./index.d.ts)):
 ```javascript
 useCreateUser(options?: useDataConnectMutationOptions<CreateUserData, FirebaseError, CreateUserVariables>): UseDataConnectMutationResult<CreateUserData, CreateUserVariables>;
 ```
@@ -228,7 +320,7 @@ useCreateUser(dc: DataConnect, options?: useDataConnectMutationOptions<CreateUse
 ```
 
 ### Variables
-The `CreateUser` Mutation requires an argument of type `CreateUserVariables`, which is defined in [dataconnect-generated/index.d.ts](../index.d.ts). It has the following fields:
+The `CreateUser` Mutation requires an argument of type `CreateUserVariables`, which is defined in [sql-sdk/index.d.ts](../index.d.ts). It has the following fields:
 
 ```javascript
 export interface CreateUserVariables {
@@ -236,6 +328,7 @@ export interface CreateUserVariables {
   email: string;
   googleId: string;
   photoUrl?: string | null;
+  refreshToken?: string | null;
 }
 ```
 ### Return Type
@@ -245,7 +338,7 @@ To check the status of a Mutation, use the `UseMutationResult.status` field. You
 
 To execute the Mutation, call `UseMutationResult.mutate()`. This function executes the Mutation, but does not return the data from the Mutation.
 
-To access the data returned by a Mutation, use the `UseMutationResult.data` field. The data for the `CreateUser` Mutation is of type `CreateUserData`, which is defined in [dataconnect-generated/index.d.ts](../index.d.ts). It has the following fields:
+To access the data returned by a Mutation, use the `UseMutationResult.data` field. The data for the `CreateUser` Mutation is of type `CreateUserData`, which is defined in [sql-sdk/index.d.ts](../index.d.ts). It has the following fields:
 ```javascript
 export interface CreateUserData {
   user_insert: User_Key;
@@ -258,8 +351,8 @@ To learn more about the `UseMutationResult` object, see the [TanStack React Quer
 
 ```javascript
 import { getDataConnect } from 'firebase/data-connect';
-import { connectorConfig, CreateUserVariables } from '@dataconnect/generated';
-import { useCreateUser } from '@dataconnect/generated/react'
+import { connectorConfig, CreateUserVariables } from '@agentrack/sql-sdk';
+import { useCreateUser } from '@agentrack/sql-sdk/react'
 
 export default function CreateUserComponent() {
   // Call the Mutation hook function to get a `UseMutationResult` object which holds the state of your Mutation.
@@ -289,10 +382,11 @@ export default function CreateUserComponent() {
     email: ..., 
     googleId: ..., 
     photoUrl: ..., // optional
+    refreshToken: ..., // optional
   };
   mutation.mutate(createUserVars);
   // Variables can be defined inline as well.
-  mutation.mutate({ displayName: ..., email: ..., googleId: ..., photoUrl: ..., });
+  mutation.mutate({ displayName: ..., email: ..., googleId: ..., photoUrl: ..., refreshToken: ..., });
 
   // You can also pass in a `useDataConnectMutationOptions` object to `UseMutationResult.mutate()`.
   const options = {
@@ -317,8 +411,104 @@ export default function CreateUserComponent() {
 }
 ```
 
+## UpdateUser
+You can execute the `UpdateUser` Mutation using the `UseMutationResult` object returned by the following Mutation hook function (which is defined in [sql-sdk/react/index.d.ts](./index.d.ts)):
+```javascript
+useUpdateUser(options?: useDataConnectMutationOptions<UpdateUserData, FirebaseError, UpdateUserVariables>): UseDataConnectMutationResult<UpdateUserData, UpdateUserVariables>;
+```
+You can also pass in a `DataConnect` instance to the Mutation hook function.
+```javascript
+useUpdateUser(dc: DataConnect, options?: useDataConnectMutationOptions<UpdateUserData, FirebaseError, UpdateUserVariables>): UseDataConnectMutationResult<UpdateUserData, UpdateUserVariables>;
+```
+
+### Variables
+The `UpdateUser` Mutation requires an argument of type `UpdateUserVariables`, which is defined in [sql-sdk/index.d.ts](../index.d.ts). It has the following fields:
+
+```javascript
+export interface UpdateUserVariables {
+  googleId: string;
+  refreshToken?: string | null;
+}
+```
+### Return Type
+Recall that calling the `UpdateUser` Mutation hook function returns a `UseMutationResult` object. This object holds the state of your Mutation, including whether the Mutation is loading, has completed, or has succeeded/failed, among other things.
+
+To check the status of a Mutation, use the `UseMutationResult.status` field. You can also check for pending / success / error status using the `UseMutationResult.isPending`, `UseMutationResult.isSuccess`, and `UseMutationResult.isError` fields.
+
+To execute the Mutation, call `UseMutationResult.mutate()`. This function executes the Mutation, but does not return the data from the Mutation.
+
+To access the data returned by a Mutation, use the `UseMutationResult.data` field. The data for the `UpdateUser` Mutation is of type `UpdateUserData`, which is defined in [sql-sdk/index.d.ts](../index.d.ts). It has the following fields:
+```javascript
+export interface UpdateUserData {
+  user_updateMany: number;
+}
+```
+
+To learn more about the `UseMutationResult` object, see the [TanStack React Query documentation](https://tanstack.com/query/v5/docs/framework/react/reference/useMutation).
+
+### Using `UpdateUser`'s Mutation hook function
+
+```javascript
+import { getDataConnect } from 'firebase/data-connect';
+import { connectorConfig, UpdateUserVariables } from '@agentrack/sql-sdk';
+import { useUpdateUser } from '@agentrack/sql-sdk/react'
+
+export default function UpdateUserComponent() {
+  // Call the Mutation hook function to get a `UseMutationResult` object which holds the state of your Mutation.
+  const mutation = useUpdateUser();
+
+  // You can also pass in a `DataConnect` instance to the Mutation hook function.
+  const dataConnect = getDataConnect(connectorConfig);
+  const mutation = useUpdateUser(dataConnect);
+
+  // You can also pass in a `useDataConnectMutationOptions` object to the Mutation hook function.
+  const options = {
+    onSuccess: () => { console.log('Mutation succeeded!'); }
+  };
+  const mutation = useUpdateUser(options);
+
+  // You can also pass both a `DataConnect` instance and a `useDataConnectMutationOptions` object.
+  const dataConnect = getDataConnect(connectorConfig);
+  const options = {
+    onSuccess: () => { console.log('Mutation succeeded!'); }
+  };
+  const mutation = useUpdateUser(dataConnect, options);
+
+  // After calling the Mutation hook function, you must call `UseMutationResult.mutate()` to execute the Mutation.
+  // The `useUpdateUser` Mutation requires an argument of type `UpdateUserVariables`:
+  const updateUserVars: UpdateUserVariables = {
+    googleId: ..., 
+    refreshToken: ..., // optional
+  };
+  mutation.mutate(updateUserVars);
+  // Variables can be defined inline as well.
+  mutation.mutate({ googleId: ..., refreshToken: ..., });
+
+  // You can also pass in a `useDataConnectMutationOptions` object to `UseMutationResult.mutate()`.
+  const options = {
+    onSuccess: () => { console.log('Mutation succeeded!'); }
+  };
+  mutation.mutate(updateUserVars, options);
+
+  // Then, you can render your component dynamically based on the status of the Mutation.
+  if (mutation.isPending) {
+    return <div>Loading...</div>;
+  }
+
+  if (mutation.isError) {
+    return <div>Error: {mutation.error.message}</div>;
+  }
+
+  // If the Mutation is successful, you can access the data returned using the `UseMutationResult.data` field.
+  if (mutation.isSuccess) {
+    console.log(mutation.data.user_updateMany);
+  }
+  return <div>Mutation execution {mutation.isSuccess ? 'successful' : 'failed'}!</div>;
+}
+```
+
 ## CreateAgent
-You can execute the `CreateAgent` Mutation using the `UseMutationResult` object returned by the following Mutation hook function (which is defined in [dataconnect-generated/react/index.d.ts](./index.d.ts)):
+You can execute the `CreateAgent` Mutation using the `UseMutationResult` object returned by the following Mutation hook function (which is defined in [sql-sdk/react/index.d.ts](./index.d.ts)):
 ```javascript
 useCreateAgent(options?: useDataConnectMutationOptions<CreateAgentData, FirebaseError, CreateAgentVariables>): UseDataConnectMutationResult<CreateAgentData, CreateAgentVariables>;
 ```
@@ -328,7 +518,7 @@ useCreateAgent(dc: DataConnect, options?: useDataConnectMutationOptions<CreateAg
 ```
 
 ### Variables
-The `CreateAgent` Mutation requires an argument of type `CreateAgentVariables`, which is defined in [dataconnect-generated/index.d.ts](../index.d.ts). It has the following fields:
+The `CreateAgent` Mutation requires an argument of type `CreateAgentVariables`, which is defined in [sql-sdk/index.d.ts](../index.d.ts). It has the following fields:
 
 ```javascript
 export interface CreateAgentVariables {
@@ -346,7 +536,7 @@ To check the status of a Mutation, use the `UseMutationResult.status` field. You
 
 To execute the Mutation, call `UseMutationResult.mutate()`. This function executes the Mutation, but does not return the data from the Mutation.
 
-To access the data returned by a Mutation, use the `UseMutationResult.data` field. The data for the `CreateAgent` Mutation is of type `CreateAgentData`, which is defined in [dataconnect-generated/index.d.ts](../index.d.ts). It has the following fields:
+To access the data returned by a Mutation, use the `UseMutationResult.data` field. The data for the `CreateAgent` Mutation is of type `CreateAgentData`, which is defined in [sql-sdk/index.d.ts](../index.d.ts). It has the following fields:
 ```javascript
 export interface CreateAgentData {
   agent_insert: Agent_Key;
@@ -359,8 +549,8 @@ To learn more about the `UseMutationResult` object, see the [TanStack React Quer
 
 ```javascript
 import { getDataConnect } from 'firebase/data-connect';
-import { connectorConfig, CreateAgentVariables } from '@dataconnect/generated';
-import { useCreateAgent } from '@dataconnect/generated/react'
+import { connectorConfig, CreateAgentVariables } from '@agentrack/sql-sdk';
+import { useCreateAgent } from '@agentrack/sql-sdk/react'
 
 export default function CreateAgentComponent() {
   // Call the Mutation hook function to get a `UseMutationResult` object which holds the state of your Mutation.
@@ -420,7 +610,7 @@ export default function CreateAgentComponent() {
 ```
 
 ## UpdateAgent
-You can execute the `UpdateAgent` Mutation using the `UseMutationResult` object returned by the following Mutation hook function (which is defined in [dataconnect-generated/react/index.d.ts](./index.d.ts)):
+You can execute the `UpdateAgent` Mutation using the `UseMutationResult` object returned by the following Mutation hook function (which is defined in [sql-sdk/react/index.d.ts](./index.d.ts)):
 ```javascript
 useUpdateAgent(options?: useDataConnectMutationOptions<UpdateAgentData, FirebaseError, UpdateAgentVariables>): UseDataConnectMutationResult<UpdateAgentData, UpdateAgentVariables>;
 ```
@@ -430,7 +620,7 @@ useUpdateAgent(dc: DataConnect, options?: useDataConnectMutationOptions<UpdateAg
 ```
 
 ### Variables
-The `UpdateAgent` Mutation requires an argument of type `UpdateAgentVariables`, which is defined in [dataconnect-generated/index.d.ts](../index.d.ts). It has the following fields:
+The `UpdateAgent` Mutation requires an argument of type `UpdateAgentVariables`, which is defined in [sql-sdk/index.d.ts](../index.d.ts). It has the following fields:
 
 ```javascript
 export interface UpdateAgentVariables {
@@ -450,7 +640,7 @@ To check the status of a Mutation, use the `UseMutationResult.status` field. You
 
 To execute the Mutation, call `UseMutationResult.mutate()`. This function executes the Mutation, but does not return the data from the Mutation.
 
-To access the data returned by a Mutation, use the `UseMutationResult.data` field. The data for the `UpdateAgent` Mutation is of type `UpdateAgentData`, which is defined in [dataconnect-generated/index.d.ts](../index.d.ts). It has the following fields:
+To access the data returned by a Mutation, use the `UseMutationResult.data` field. The data for the `UpdateAgent` Mutation is of type `UpdateAgentData`, which is defined in [sql-sdk/index.d.ts](../index.d.ts). It has the following fields:
 ```javascript
 export interface UpdateAgentData {
   agent_update?: Agent_Key | null;
@@ -463,8 +653,8 @@ To learn more about the `UseMutationResult` object, see the [TanStack React Quer
 
 ```javascript
 import { getDataConnect } from 'firebase/data-connect';
-import { connectorConfig, UpdateAgentVariables } from '@dataconnect/generated';
-import { useUpdateAgent } from '@dataconnect/generated/react'
+import { connectorConfig, UpdateAgentVariables } from '@agentrack/sql-sdk';
+import { useUpdateAgent } from '@agentrack/sql-sdk/react'
 
 export default function UpdateAgentComponent() {
   // Call the Mutation hook function to get a `UseMutationResult` object which holds the state of your Mutation.
@@ -526,7 +716,7 @@ export default function UpdateAgentComponent() {
 ```
 
 ## DeleteAgent
-You can execute the `DeleteAgent` Mutation using the `UseMutationResult` object returned by the following Mutation hook function (which is defined in [dataconnect-generated/react/index.d.ts](./index.d.ts)):
+You can execute the `DeleteAgent` Mutation using the `UseMutationResult` object returned by the following Mutation hook function (which is defined in [sql-sdk/react/index.d.ts](./index.d.ts)):
 ```javascript
 useDeleteAgent(options?: useDataConnectMutationOptions<DeleteAgentData, FirebaseError, DeleteAgentVariables>): UseDataConnectMutationResult<DeleteAgentData, DeleteAgentVariables>;
 ```
@@ -536,7 +726,7 @@ useDeleteAgent(dc: DataConnect, options?: useDataConnectMutationOptions<DeleteAg
 ```
 
 ### Variables
-The `DeleteAgent` Mutation requires an argument of type `DeleteAgentVariables`, which is defined in [dataconnect-generated/index.d.ts](../index.d.ts). It has the following fields:
+The `DeleteAgent` Mutation requires an argument of type `DeleteAgentVariables`, which is defined in [sql-sdk/index.d.ts](../index.d.ts). It has the following fields:
 
 ```javascript
 export interface DeleteAgentVariables {
@@ -550,7 +740,7 @@ To check the status of a Mutation, use the `UseMutationResult.status` field. You
 
 To execute the Mutation, call `UseMutationResult.mutate()`. This function executes the Mutation, but does not return the data from the Mutation.
 
-To access the data returned by a Mutation, use the `UseMutationResult.data` field. The data for the `DeleteAgent` Mutation is of type `DeleteAgentData`, which is defined in [dataconnect-generated/index.d.ts](../index.d.ts). It has the following fields:
+To access the data returned by a Mutation, use the `UseMutationResult.data` field. The data for the `DeleteAgent` Mutation is of type `DeleteAgentData`, which is defined in [sql-sdk/index.d.ts](../index.d.ts). It has the following fields:
 ```javascript
 export interface DeleteAgentData {
   agent_delete?: Agent_Key | null;
@@ -563,8 +753,8 @@ To learn more about the `UseMutationResult` object, see the [TanStack React Quer
 
 ```javascript
 import { getDataConnect } from 'firebase/data-connect';
-import { connectorConfig, DeleteAgentVariables } from '@dataconnect/generated';
-import { useDeleteAgent } from '@dataconnect/generated/react'
+import { connectorConfig, DeleteAgentVariables } from '@agentrack/sql-sdk';
+import { useDeleteAgent } from '@agentrack/sql-sdk/react'
 
 export default function DeleteAgentComponent() {
   // Call the Mutation hook function to get a `UseMutationResult` object which holds the state of your Mutation.
@@ -614,6 +804,106 @@ export default function DeleteAgentComponent() {
   // If the Mutation is successful, you can access the data returned using the `UseMutationResult.data` field.
   if (mutation.isSuccess) {
     console.log(mutation.data.agent_delete);
+  }
+  return <div>Mutation execution {mutation.isSuccess ? 'successful' : 'failed'}!</div>;
+}
+```
+
+## CreateRun
+You can execute the `CreateRun` Mutation using the `UseMutationResult` object returned by the following Mutation hook function (which is defined in [sql-sdk/react/index.d.ts](./index.d.ts)):
+```javascript
+useCreateRun(options?: useDataConnectMutationOptions<CreateRunData, FirebaseError, CreateRunVariables>): UseDataConnectMutationResult<CreateRunData, CreateRunVariables>;
+```
+You can also pass in a `DataConnect` instance to the Mutation hook function.
+```javascript
+useCreateRun(dc: DataConnect, options?: useDataConnectMutationOptions<CreateRunData, FirebaseError, CreateRunVariables>): UseDataConnectMutationResult<CreateRunData, CreateRunVariables>;
+```
+
+### Variables
+The `CreateRun` Mutation requires an argument of type `CreateRunVariables`, which is defined in [sql-sdk/index.d.ts](../index.d.ts). It has the following fields:
+
+```javascript
+export interface CreateRunVariables {
+  agentId: UUIDString;
+  status: string;
+  details: string;
+  logs?: string[] | null;
+}
+```
+### Return Type
+Recall that calling the `CreateRun` Mutation hook function returns a `UseMutationResult` object. This object holds the state of your Mutation, including whether the Mutation is loading, has completed, or has succeeded/failed, among other things.
+
+To check the status of a Mutation, use the `UseMutationResult.status` field. You can also check for pending / success / error status using the `UseMutationResult.isPending`, `UseMutationResult.isSuccess`, and `UseMutationResult.isError` fields.
+
+To execute the Mutation, call `UseMutationResult.mutate()`. This function executes the Mutation, but does not return the data from the Mutation.
+
+To access the data returned by a Mutation, use the `UseMutationResult.data` field. The data for the `CreateRun` Mutation is of type `CreateRunData`, which is defined in [sql-sdk/index.d.ts](../index.d.ts). It has the following fields:
+```javascript
+export interface CreateRunData {
+  run_insert: Run_Key;
+}
+```
+
+To learn more about the `UseMutationResult` object, see the [TanStack React Query documentation](https://tanstack.com/query/v5/docs/framework/react/reference/useMutation).
+
+### Using `CreateRun`'s Mutation hook function
+
+```javascript
+import { getDataConnect } from 'firebase/data-connect';
+import { connectorConfig, CreateRunVariables } from '@agentrack/sql-sdk';
+import { useCreateRun } from '@agentrack/sql-sdk/react'
+
+export default function CreateRunComponent() {
+  // Call the Mutation hook function to get a `UseMutationResult` object which holds the state of your Mutation.
+  const mutation = useCreateRun();
+
+  // You can also pass in a `DataConnect` instance to the Mutation hook function.
+  const dataConnect = getDataConnect(connectorConfig);
+  const mutation = useCreateRun(dataConnect);
+
+  // You can also pass in a `useDataConnectMutationOptions` object to the Mutation hook function.
+  const options = {
+    onSuccess: () => { console.log('Mutation succeeded!'); }
+  };
+  const mutation = useCreateRun(options);
+
+  // You can also pass both a `DataConnect` instance and a `useDataConnectMutationOptions` object.
+  const dataConnect = getDataConnect(connectorConfig);
+  const options = {
+    onSuccess: () => { console.log('Mutation succeeded!'); }
+  };
+  const mutation = useCreateRun(dataConnect, options);
+
+  // After calling the Mutation hook function, you must call `UseMutationResult.mutate()` to execute the Mutation.
+  // The `useCreateRun` Mutation requires an argument of type `CreateRunVariables`:
+  const createRunVars: CreateRunVariables = {
+    agentId: ..., 
+    status: ..., 
+    details: ..., 
+    logs: ..., // optional
+  };
+  mutation.mutate(createRunVars);
+  // Variables can be defined inline as well.
+  mutation.mutate({ agentId: ..., status: ..., details: ..., logs: ..., });
+
+  // You can also pass in a `useDataConnectMutationOptions` object to `UseMutationResult.mutate()`.
+  const options = {
+    onSuccess: () => { console.log('Mutation succeeded!'); }
+  };
+  mutation.mutate(createRunVars, options);
+
+  // Then, you can render your component dynamically based on the status of the Mutation.
+  if (mutation.isPending) {
+    return <div>Loading...</div>;
+  }
+
+  if (mutation.isError) {
+    return <div>Error: {mutation.error.message}</div>;
+  }
+
+  // If the Mutation is successful, you can access the data returned using the `UseMutationResult.data` field.
+  if (mutation.isSuccess) {
+    console.log(mutation.data.run_insert);
   }
   return <div>Mutation execution {mutation.isSuccess ? 'successful' : 'failed'}!</div>;
 }

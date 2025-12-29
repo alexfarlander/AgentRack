@@ -5,8 +5,8 @@ import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import AgentModal from "../components/AgentModal";
 import { dataconnect } from "../lib/firebase";
-import { useGetAgentsForUser } from "@dataconnect/generated/react";
-import { deleteAgent } from "@dataconnect/generated";
+import { useGetAgentsForUser } from "@agentrack/sql-sdk/react";
+import { deleteAgent } from "@agentrack/sql-sdk";
 
 export default function Home() {
   const { user, loading, signInWithGoogle, logout } = useAuth();

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { dataconnect } from "../lib/firebase";
-import { createAgent } from "@dataconnect/generated";
+import { createAgent } from "@agentrack/sql-sdk";
 import { useAuth } from "../context/AuthContext";
 import { AgentConfig, OutreachSettings } from "@agentrack/shared";
 

@@ -4,5 +4,5 @@ generate:
     - outputDir: ../../packages/sql-sdk
       package: "@agentrack/sql-sdk"
       packageJsonDir: ../../packages/sql-sdk
-      react: false
+      react: true
       angular: false
