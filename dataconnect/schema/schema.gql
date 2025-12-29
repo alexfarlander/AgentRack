@@ -1,4 +1,5 @@
-type User @table {
+type UserV2 @table(key: "id") {
+  id: String!
   googleId: String!
   createdAt: Timestamp!
   displayName: String
@@ -7,9 +8,9 @@ type User @table {
   refreshToken: String
 }
 
-type Agent @table {
-  id: UUID!
-  user: User!
+type AgentV2 @table(key: "id") {
+  id: String!
+  user: UserV2!
   name: String!
   type: String!
   status: String!
@@ -19,8 +20,8 @@ type Agent @table {
   settings: String
 }
 
-type Run @table {
-  agent: Agent!
+type RunV2 @table {
+  agent: AgentV2!
   timestamp: Timestamp!
   status: String!
   details: String!

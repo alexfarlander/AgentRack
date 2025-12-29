@@ -10,17 +10,17 @@ export type DateString = string;
 
 
 
-export interface Agent_Key {
-  id: UUIDString;
-  __typename?: 'Agent_Key';
+export interface AgentV2_Key {
+  id: string;
+  __typename?: 'AgentV2_Key';
 }
 
 export interface CreateAgentWithIdData {
-  agent_insert: Agent_Key;
+  agentV2_insert: AgentV2_Key;
 }
 
 export interface CreateAgentWithIdVariables {
-  id: UUIDString;
+  id: string;
   name: string;
   type: string;
   status: string;
@@ -29,18 +29,18 @@ export interface CreateAgentWithIdVariables {
 }
 
 export interface CreateRunData {
-  run_insert: Run_Key;
+  runV2_insert: RunV2_Key;
 }
 
 export interface CreateRunVariables {
-  agentId: UUIDString;
+  agentId: string;
   status: string;
   details: string;
   logs?: string[] | null;
 }
 
 export interface CreateUserData {
-  user_insert: User_Key;
+  userV2_insert: UserV2_Key;
 }
 
 export interface CreateUserVariables {
@@ -52,31 +52,31 @@ export interface CreateUserVariables {
 }
 
 export interface DeleteAgentData {
-  agent_delete?: Agent_Key | null;
+  agentV2_delete?: AgentV2_Key | null;
 }
 
 export interface DeleteAgentVariables {
-  id: UUIDString;
+  id: string;
 }
 
 export interface GetAgentData {
-  agent?: {
-    id: UUIDString;
+  agentV2?: {
+    id: string;
     name: string;
     type: string;
     status: string;
     settings?: string | null;
     lastRun?: TimestampString | null;
-  } & Agent_Key;
+  } & AgentV2_Key;
 }
 
 export interface GetAgentVariables {
-  id: UUIDString;
+  id: string;
 }
 
 export interface GetAgentsForUserData {
-  agents: ({
-    id: UUIDString;
+  agentV2s: ({
+    id: string;
     name: string;
     type: string;
     status: string;
@@ -84,20 +84,20 @@ export interface GetAgentsForUserData {
     settings?: string | null;
     lastRun?: TimestampString | null;
     createdAt: TimestampString;
-  } & Agent_Key)[];
+  } & AgentV2_Key)[];
 }
 
-export interface Run_Key {
+export interface RunV2_Key {
   id: UUIDString;
-  __typename?: 'Run_Key';
+  __typename?: 'RunV2_Key';
 }
 
 export interface UpdateAgentData {
-  agent_update?: Agent_Key | null;
+  agentV2_update?: AgentV2_Key | null;
 }
 
 export interface UpdateAgentVariables {
-  id: UUIDString;
+  id: string;
   name?: string | null;
   type?: string | null;
   status?: string | null;
@@ -107,7 +107,7 @@ export interface UpdateAgentVariables {
 }
 
 export interface UpdateUserData {
-  user_updateMany: number;
+  userV2_updateMany: number;
 }
 
 export interface UpdateUserVariables {
@@ -115,9 +115,9 @@ export interface UpdateUserVariables {
   refreshToken?: string | null;
 }
 
-export interface User_Key {
-  id: UUIDString;
-  __typename?: 'User_Key';
+export interface UserV2_Key {
+  id: string;
+  __typename?: 'UserV2_Key';
 }
 
 interface CreateUserRef {

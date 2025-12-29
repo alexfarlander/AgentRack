@@ -138,8 +138,8 @@ To check the status of a Query, use the `UseQueryResult.status` field. You can a
 To access the data returned by a Query, use the `UseQueryResult.data` field. The data for the `GetAgentsForUser` Query is of type `GetAgentsForUserData`, which is defined in [sql-sdk/index.d.ts](../index.d.ts). It has the following fields:
 ```javascript
 export interface GetAgentsForUserData {
-  agents: ({
-    id: UUIDString;
+  agentV2s: ({
+    id: string;
     name: string;
     type: string;
     status: string;
@@ -147,7 +147,7 @@ export interface GetAgentsForUserData {
     settings?: string | null;
     lastRun?: TimestampString | null;
     createdAt: TimestampString;
-  } & Agent_Key)[];
+  } & AgentV2_Key)[];
 }
 ```
 
@@ -189,7 +189,7 @@ export default function GetAgentsForUserComponent() {
 
   // If the Query is successful, you can access the data returned using the `UseQueryResult.data` field.
   if (query.isSuccess) {
-    console.log(query.data.agents);
+    console.log(query.data.agentV2s);
   }
   return <div>Query execution {query.isSuccess ? 'successful' : 'failed'}!</div>;
 }
@@ -211,7 +211,7 @@ The `GetAgent` Query requires an argument of type `GetAgentVariables`, which is 
 
 ```javascript
 export interface GetAgentVariables {
-  id: UUIDString;
+  id: string;
 }
 ```
 ### Return Type
@@ -222,14 +222,14 @@ To check the status of a Query, use the `UseQueryResult.status` field. You can a
 To access the data returned by a Query, use the `UseQueryResult.data` field. The data for the `GetAgent` Query is of type `GetAgentData`, which is defined in [sql-sdk/index.d.ts](../index.d.ts). It has the following fields:
 ```javascript
 export interface GetAgentData {
-  agent?: {
-    id: UUIDString;
+  agentV2?: {
+    id: string;
     name: string;
     type: string;
     status: string;
     settings?: string | null;
     lastRun?: TimestampString | null;
-  } & Agent_Key;
+  } & AgentV2_Key;
 }
 ```
 
@@ -278,7 +278,7 @@ export default function GetAgentComponent() {
 
   // If the Query is successful, you can access the data returned using the `UseQueryResult.data` field.
   if (query.isSuccess) {
-    console.log(query.data.agent);
+    console.log(query.data.agentV2);
   }
   return <div>Query execution {query.isSuccess ? 'successful' : 'failed'}!</div>;
 }
@@ -341,7 +341,7 @@ To execute the Mutation, call `UseMutationResult.mutate()`. This function execut
 To access the data returned by a Mutation, use the `UseMutationResult.data` field. The data for the `CreateUser` Mutation is of type `CreateUserData`, which is defined in [sql-sdk/index.d.ts](../index.d.ts). It has the following fields:
 ```javascript
 export interface CreateUserData {
-  user_insert: User_Key;
+  userV2_insert: UserV2_Key;
 }
 ```
 
@@ -405,7 +405,7 @@ export default function CreateUserComponent() {
 
   // If the Mutation is successful, you can access the data returned using the `UseMutationResult.data` field.
   if (mutation.isSuccess) {
-    console.log(mutation.data.user_insert);
+    console.log(mutation.data.userV2_insert);
   }
   return <div>Mutation execution {mutation.isSuccess ? 'successful' : 'failed'}!</div>;
 }
@@ -440,7 +440,7 @@ To execute the Mutation, call `UseMutationResult.mutate()`. This function execut
 To access the data returned by a Mutation, use the `UseMutationResult.data` field. The data for the `UpdateUser` Mutation is of type `UpdateUserData`, which is defined in [sql-sdk/index.d.ts](../index.d.ts). It has the following fields:
 ```javascript
 export interface UpdateUserData {
-  user_updateMany: number;
+  userV2_updateMany: number;
 }
 ```
 
@@ -501,7 +501,7 @@ export default function UpdateUserComponent() {
 
   // If the Mutation is successful, you can access the data returned using the `UseMutationResult.data` field.
   if (mutation.isSuccess) {
-    console.log(mutation.data.user_updateMany);
+    console.log(mutation.data.userV2_updateMany);
   }
   return <div>Mutation execution {mutation.isSuccess ? 'successful' : 'failed'}!</div>;
 }
@@ -522,7 +522,7 @@ The `CreateAgentWithId` Mutation requires an argument of type `CreateAgentWithId
 
 ```javascript
 export interface CreateAgentWithIdVariables {
-  id: UUIDString;
+  id: string;
   name: string;
   type: string;
   status: string;
@@ -540,7 +540,7 @@ To execute the Mutation, call `UseMutationResult.mutate()`. This function execut
 To access the data returned by a Mutation, use the `UseMutationResult.data` field. The data for the `CreateAgentWithId` Mutation is of type `CreateAgentWithIdData`, which is defined in [sql-sdk/index.d.ts](../index.d.ts). It has the following fields:
 ```javascript
 export interface CreateAgentWithIdData {
-  agent_insert: Agent_Key;
+  agentV2_insert: AgentV2_Key;
 }
 ```
 
@@ -605,7 +605,7 @@ export default function CreateAgentWithIdComponent() {
 
   // If the Mutation is successful, you can access the data returned using the `UseMutationResult.data` field.
   if (mutation.isSuccess) {
-    console.log(mutation.data.agent_insert);
+    console.log(mutation.data.agentV2_insert);
   }
   return <div>Mutation execution {mutation.isSuccess ? 'successful' : 'failed'}!</div>;
 }
@@ -626,7 +626,7 @@ The `UpdateAgent` Mutation requires an argument of type `UpdateAgentVariables`, 
 
 ```javascript
 export interface UpdateAgentVariables {
-  id: UUIDString;
+  id: string;
   name?: string | null;
   type?: string | null;
   status?: string | null;
@@ -645,7 +645,7 @@ To execute the Mutation, call `UseMutationResult.mutate()`. This function execut
 To access the data returned by a Mutation, use the `UseMutationResult.data` field. The data for the `UpdateAgent` Mutation is of type `UpdateAgentData`, which is defined in [sql-sdk/index.d.ts](../index.d.ts). It has the following fields:
 ```javascript
 export interface UpdateAgentData {
-  agent_update?: Agent_Key | null;
+  agentV2_update?: AgentV2_Key | null;
 }
 ```
 
@@ -711,7 +711,7 @@ export default function UpdateAgentComponent() {
 
   // If the Mutation is successful, you can access the data returned using the `UseMutationResult.data` field.
   if (mutation.isSuccess) {
-    console.log(mutation.data.agent_update);
+    console.log(mutation.data.agentV2_update);
   }
   return <div>Mutation execution {mutation.isSuccess ? 'successful' : 'failed'}!</div>;
 }
@@ -732,7 +732,7 @@ The `DeleteAgent` Mutation requires an argument of type `DeleteAgentVariables`, 
 
 ```javascript
 export interface DeleteAgentVariables {
-  id: UUIDString;
+  id: string;
 }
 ```
 ### Return Type
@@ -745,7 +745,7 @@ To execute the Mutation, call `UseMutationResult.mutate()`. This function execut
 To access the data returned by a Mutation, use the `UseMutationResult.data` field. The data for the `DeleteAgent` Mutation is of type `DeleteAgentData`, which is defined in [sql-sdk/index.d.ts](../index.d.ts). It has the following fields:
 ```javascript
 export interface DeleteAgentData {
-  agent_delete?: Agent_Key | null;
+  agentV2_delete?: AgentV2_Key | null;
 }
 ```
 
@@ -805,7 +805,7 @@ export default function DeleteAgentComponent() {
 
   // If the Mutation is successful, you can access the data returned using the `UseMutationResult.data` field.
   if (mutation.isSuccess) {
-    console.log(mutation.data.agent_delete);
+    console.log(mutation.data.agentV2_delete);
   }
   return <div>Mutation execution {mutation.isSuccess ? 'successful' : 'failed'}!</div>;
 }
@@ -826,7 +826,7 @@ The `CreateRun` Mutation requires an argument of type `CreateRunVariables`, whic
 
 ```javascript
 export interface CreateRunVariables {
-  agentId: UUIDString;
+  agentId: string;
   status: string;
   details: string;
   logs?: string[] | null;
@@ -842,7 +842,7 @@ To execute the Mutation, call `UseMutationResult.mutate()`. This function execut
 To access the data returned by a Mutation, use the `UseMutationResult.data` field. The data for the `CreateRun` Mutation is of type `CreateRunData`, which is defined in [sql-sdk/index.d.ts](../index.d.ts). It has the following fields:
 ```javascript
 export interface CreateRunData {
-  run_insert: Run_Key;
+  runV2_insert: RunV2_Key;
 }
 ```
 
@@ -905,7 +905,7 @@ export default function CreateRunComponent() {
 
   // If the Mutation is successful, you can access the data returned using the `UseMutationResult.data` field.
   if (mutation.isSuccess) {
-    console.log(mutation.data.run_insert);
+    console.log(mutation.data.runV2_insert);
   }
   return <div>Mutation execution {mutation.isSuccess ? 'successful' : 'failed'}!</div>;
 }

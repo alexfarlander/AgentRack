@@ -102,8 +102,8 @@ Recall that executing the `GetAgentsForUser` query returns a `QueryPromise` that
 The `data` property is an object of type `GetAgentsForUserData`, which is defined in [sql-sdk/index.d.ts](./index.d.ts). It has the following fields:
 ```typescript
 export interface GetAgentsForUserData {
-  agents: ({
-    id: UUIDString;
+  agentV2s: ({
+    id: string;
     name: string;
     type: string;
     status: string;
@@ -111,7 +111,7 @@ export interface GetAgentsForUserData {
     settings?: string | null;
     lastRun?: TimestampString | null;
     createdAt: TimestampString;
-  } & Agent_Key)[];
+  } & AgentV2_Key)[];
 }
 ```
 ### Using `GetAgentsForUser`'s action shortcut function
@@ -129,12 +129,12 @@ const { data } = await getAgentsForUser();
 const dataConnect = getDataConnect(connectorConfig);
 const { data } = await getAgentsForUser(dataConnect);
 
-console.log(data.agents);
+console.log(data.agentV2s);
 
 // Or, you can use the `Promise` API.
 getAgentsForUser().then((response) => {
   const data = response.data;
-  console.log(data.agents);
+  console.log(data.agentV2s);
 });
 ```
 
@@ -156,12 +156,12 @@ const ref = getAgentsForUserRef(dataConnect);
 // You can use the `await` keyword to wait for the promise to resolve.
 const { data } = await executeQuery(ref);
 
-console.log(data.agents);
+console.log(data.agentV2s);
 
 // Or, you can use the `Promise` API.
 executeQuery(ref).then((response) => {
   const data = response.data;
-  console.log(data.agents);
+  console.log(data.agentV2s);
 });
 ```
 
@@ -199,7 +199,7 @@ The `GetAgent` query requires an argument of type `GetAgentVariables`, which is 
 
 ```typescript
 export interface GetAgentVariables {
-  id: UUIDString;
+  id: string;
 }
 ```
 ### Return Type
@@ -208,14 +208,14 @@ Recall that executing the `GetAgent` query returns a `QueryPromise` that resolve
 The `data` property is an object of type `GetAgentData`, which is defined in [sql-sdk/index.d.ts](./index.d.ts). It has the following fields:
 ```typescript
 export interface GetAgentData {
-  agent?: {
-    id: UUIDString;
+  agentV2?: {
+    id: string;
     name: string;
     type: string;
     status: string;
     settings?: string | null;
     lastRun?: TimestampString | null;
-  } & Agent_Key;
+  } & AgentV2_Key;
 }
 ```
 ### Using `GetAgent`'s action shortcut function
@@ -239,12 +239,12 @@ const { data } = await getAgent({ id: ..., });
 const dataConnect = getDataConnect(connectorConfig);
 const { data } = await getAgent(dataConnect, getAgentVars);
 
-console.log(data.agent);
+console.log(data.agentV2);
 
 // Or, you can use the `Promise` API.
 getAgent(getAgentVars).then((response) => {
   const data = response.data;
-  console.log(data.agent);
+  console.log(data.agentV2);
 });
 ```
 
@@ -272,12 +272,12 @@ const ref = getAgentRef(dataConnect, getAgentVars);
 // You can use the `await` keyword to wait for the promise to resolve.
 const { data } = await executeQuery(ref);
 
-console.log(data.agent);
+console.log(data.agentV2);
 
 // Or, you can use the `Promise` API.
 executeQuery(ref).then((response) => {
   const data = response.data;
-  console.log(data.agent);
+  console.log(data.agentV2);
 });
 ```
 
@@ -343,7 +343,7 @@ Recall that executing the `CreateUser` mutation returns a `MutationPromise` that
 The `data` property is an object of type `CreateUserData`, which is defined in [sql-sdk/index.d.ts](./index.d.ts). It has the following fields:
 ```typescript
 export interface CreateUserData {
-  user_insert: User_Key;
+  userV2_insert: UserV2_Key;
 }
 ```
 ### Using `CreateUser`'s action shortcut function
@@ -371,12 +371,12 @@ const { data } = await createUser({ displayName: ..., email: ..., googleId: ...,
 const dataConnect = getDataConnect(connectorConfig);
 const { data } = await createUser(dataConnect, createUserVars);
 
-console.log(data.user_insert);
+console.log(data.userV2_insert);
 
 // Or, you can use the `Promise` API.
 createUser(createUserVars).then((response) => {
   const data = response.data;
-  console.log(data.user_insert);
+  console.log(data.userV2_insert);
 });
 ```
 
@@ -408,12 +408,12 @@ const ref = createUserRef(dataConnect, createUserVars);
 // You can use the `await` keyword to wait for the promise to resolve.
 const { data } = await executeMutation(ref);
 
-console.log(data.user_insert);
+console.log(data.userV2_insert);
 
 // Or, you can use the `Promise` API.
 executeMutation(ref).then((response) => {
   const data = response.data;
-  console.log(data.user_insert);
+  console.log(data.userV2_insert);
 });
 ```
 
@@ -461,7 +461,7 @@ Recall that executing the `UpdateUser` mutation returns a `MutationPromise` that
 The `data` property is an object of type `UpdateUserData`, which is defined in [sql-sdk/index.d.ts](./index.d.ts). It has the following fields:
 ```typescript
 export interface UpdateUserData {
-  user_updateMany: number;
+  userV2_updateMany: number;
 }
 ```
 ### Using `UpdateUser`'s action shortcut function
@@ -486,12 +486,12 @@ const { data } = await updateUser({ googleId: ..., refreshToken: ..., });
 const dataConnect = getDataConnect(connectorConfig);
 const { data } = await updateUser(dataConnect, updateUserVars);
 
-console.log(data.user_updateMany);
+console.log(data.userV2_updateMany);
 
 // Or, you can use the `Promise` API.
 updateUser(updateUserVars).then((response) => {
   const data = response.data;
-  console.log(data.user_updateMany);
+  console.log(data.userV2_updateMany);
 });
 ```
 
@@ -520,12 +520,12 @@ const ref = updateUserRef(dataConnect, updateUserVars);
 // You can use the `await` keyword to wait for the promise to resolve.
 const { data } = await executeMutation(ref);
 
-console.log(data.user_updateMany);
+console.log(data.userV2_updateMany);
 
 // Or, you can use the `Promise` API.
 executeMutation(ref).then((response) => {
   const data = response.data;
-  console.log(data.user_updateMany);
+  console.log(data.userV2_updateMany);
 });
 ```
 
@@ -563,7 +563,7 @@ The `CreateAgentWithId` mutation requires an argument of type `CreateAgentWithId
 
 ```typescript
 export interface CreateAgentWithIdVariables {
-  id: UUIDString;
+  id: string;
   name: string;
   type: string;
   status: string;
@@ -577,7 +577,7 @@ Recall that executing the `CreateAgentWithId` mutation returns a `MutationPromis
 The `data` property is an object of type `CreateAgentWithIdData`, which is defined in [sql-sdk/index.d.ts](./index.d.ts). It has the following fields:
 ```typescript
 export interface CreateAgentWithIdData {
-  agent_insert: Agent_Key;
+  agentV2_insert: AgentV2_Key;
 }
 ```
 ### Using `CreateAgentWithId`'s action shortcut function
@@ -606,12 +606,12 @@ const { data } = await createAgentWithId({ id: ..., name: ..., type: ..., status
 const dataConnect = getDataConnect(connectorConfig);
 const { data } = await createAgentWithId(dataConnect, createAgentWithIdVars);
 
-console.log(data.agent_insert);
+console.log(data.agentV2_insert);
 
 // Or, you can use the `Promise` API.
 createAgentWithId(createAgentWithIdVars).then((response) => {
   const data = response.data;
-  console.log(data.agent_insert);
+  console.log(data.agentV2_insert);
 });
 ```
 
@@ -644,12 +644,12 @@ const ref = createAgentWithIdRef(dataConnect, createAgentWithIdVars);
 // You can use the `await` keyword to wait for the promise to resolve.
 const { data } = await executeMutation(ref);
 
-console.log(data.agent_insert);
+console.log(data.agentV2_insert);
 
 // Or, you can use the `Promise` API.
 executeMutation(ref).then((response) => {
   const data = response.data;
-  console.log(data.agent_insert);
+  console.log(data.agentV2_insert);
 });
 ```
 
@@ -687,7 +687,7 @@ The `UpdateAgent` mutation requires an argument of type `UpdateAgentVariables`, 
 
 ```typescript
 export interface UpdateAgentVariables {
-  id: UUIDString;
+  id: string;
   name?: string | null;
   type?: string | null;
   status?: string | null;
@@ -702,7 +702,7 @@ Recall that executing the `UpdateAgent` mutation returns a `MutationPromise` tha
 The `data` property is an object of type `UpdateAgentData`, which is defined in [sql-sdk/index.d.ts](./index.d.ts). It has the following fields:
 ```typescript
 export interface UpdateAgentData {
-  agent_update?: Agent_Key | null;
+  agentV2_update?: AgentV2_Key | null;
 }
 ```
 ### Using `UpdateAgent`'s action shortcut function
@@ -732,12 +732,12 @@ const { data } = await updateAgent({ id: ..., name: ..., type: ..., status: ...,
 const dataConnect = getDataConnect(connectorConfig);
 const { data } = await updateAgent(dataConnect, updateAgentVars);
 
-console.log(data.agent_update);
+console.log(data.agentV2_update);
 
 // Or, you can use the `Promise` API.
 updateAgent(updateAgentVars).then((response) => {
   const data = response.data;
-  console.log(data.agent_update);
+  console.log(data.agentV2_update);
 });
 ```
 
@@ -771,12 +771,12 @@ const ref = updateAgentRef(dataConnect, updateAgentVars);
 // You can use the `await` keyword to wait for the promise to resolve.
 const { data } = await executeMutation(ref);
 
-console.log(data.agent_update);
+console.log(data.agentV2_update);
 
 // Or, you can use the `Promise` API.
 executeMutation(ref).then((response) => {
   const data = response.data;
-  console.log(data.agent_update);
+  console.log(data.agentV2_update);
 });
 ```
 
@@ -814,7 +814,7 @@ The `DeleteAgent` mutation requires an argument of type `DeleteAgentVariables`, 
 
 ```typescript
 export interface DeleteAgentVariables {
-  id: UUIDString;
+  id: string;
 }
 ```
 ### Return Type
@@ -823,7 +823,7 @@ Recall that executing the `DeleteAgent` mutation returns a `MutationPromise` tha
 The `data` property is an object of type `DeleteAgentData`, which is defined in [sql-sdk/index.d.ts](./index.d.ts). It has the following fields:
 ```typescript
 export interface DeleteAgentData {
-  agent_delete?: Agent_Key | null;
+  agentV2_delete?: AgentV2_Key | null;
 }
 ```
 ### Using `DeleteAgent`'s action shortcut function
@@ -847,12 +847,12 @@ const { data } = await deleteAgent({ id: ..., });
 const dataConnect = getDataConnect(connectorConfig);
 const { data } = await deleteAgent(dataConnect, deleteAgentVars);
 
-console.log(data.agent_delete);
+console.log(data.agentV2_delete);
 
 // Or, you can use the `Promise` API.
 deleteAgent(deleteAgentVars).then((response) => {
   const data = response.data;
-  console.log(data.agent_delete);
+  console.log(data.agentV2_delete);
 });
 ```
 
@@ -880,12 +880,12 @@ const ref = deleteAgentRef(dataConnect, deleteAgentVars);
 // You can use the `await` keyword to wait for the promise to resolve.
 const { data } = await executeMutation(ref);
 
-console.log(data.agent_delete);
+console.log(data.agentV2_delete);
 
 // Or, you can use the `Promise` API.
 executeMutation(ref).then((response) => {
   const data = response.data;
-  console.log(data.agent_delete);
+  console.log(data.agentV2_delete);
 });
 ```
 
@@ -923,7 +923,7 @@ The `CreateRun` mutation requires an argument of type `CreateRunVariables`, whic
 
 ```typescript
 export interface CreateRunVariables {
-  agentId: UUIDString;
+  agentId: string;
   status: string;
   details: string;
   logs?: string[] | null;
@@ -935,7 +935,7 @@ Recall that executing the `CreateRun` mutation returns a `MutationPromise` that 
 The `data` property is an object of type `CreateRunData`, which is defined in [sql-sdk/index.d.ts](./index.d.ts). It has the following fields:
 ```typescript
 export interface CreateRunData {
-  run_insert: Run_Key;
+  runV2_insert: RunV2_Key;
 }
 ```
 ### Using `CreateRun`'s action shortcut function
@@ -962,12 +962,12 @@ const { data } = await createRun({ agentId: ..., status: ..., details: ..., logs
 const dataConnect = getDataConnect(connectorConfig);
 const { data } = await createRun(dataConnect, createRunVars);
 
-console.log(data.run_insert);
+console.log(data.runV2_insert);
 
 // Or, you can use the `Promise` API.
 createRun(createRunVars).then((response) => {
   const data = response.data;
-  console.log(data.run_insert);
+  console.log(data.runV2_insert);
 });
 ```
 
@@ -998,12 +998,12 @@ const ref = createRunRef(dataConnect, createRunVars);
 // You can use the `await` keyword to wait for the promise to resolve.
 const { data } = await executeMutation(ref);
 
-console.log(data.run_insert);
+console.log(data.runV2_insert);
 
 // Or, you can use the `Promise` API.
 executeMutation(ref).then((response) => {
   const data = response.data;
-  console.log(data.run_insert);
+  console.log(data.runV2_insert);
 });
 ```
 
