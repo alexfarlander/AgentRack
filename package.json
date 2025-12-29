@@ -6,7 +6,7 @@
         "packages/*"
     ],
     "scripts": {
-        "build": "npm run build -w packages/shared && npm run build -w apps/web && rm -rf .next && cp -r apps/web/.next . && rm -rf public && cp -r apps/web/public .",
+        "build": "npm run build -w packages/shared && npm run build -w apps/web && rm -rf public && cp -r apps/web/public .",
         "start": "node .next/standalone/apps/web/server.js",
         "web:dev": "npm run dev -w apps/web",
         "web:build": "npm run build -w apps/web",
